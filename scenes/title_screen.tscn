@@ -1,0 +1,112 @@
+[gd_scene load_steps=10 format=3 uid="uid://bldteltu70wb7"]
+
+[ext_resource type="Script" path="res://scripts/ui/title_screen.gd" id="1_mxu32"]
+[ext_resource type="Texture2D" uid="uid://ca2ktkftrb3ku" path="res://assets/backgrounds/background1.png" id="2_3fh2s"]
+[ext_resource type="Texture2D" uid="uid://bsfoykcs54xbn" path="res://assets/backgrounds/background2.png" id="3_4wxb2"]
+[ext_resource type="FontFile" uid="uid://bvrybk1n0ilqc" path="res://assets/fonts/HelpMe.ttf" id="4_j118e"]
+[ext_resource type="AudioStream" uid="uid://hddpkah54b1l" path="res://audio/music/title-music.mp3" id="5_sadwa"]
+[ext_resource type="AudioStream" uid="uid://e5bivtx6lnuk" path="res://audio/sfx/Creepy_2s.wav" id="6_73vuj"]
+
+[sub_resource type="Animation" id="Animation_cl24c"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:theme_override_colors/font_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.420629, 0, 0.0606273, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_hasfw"]
+resource_name = "animate_title"
+length = 5.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:theme_override_colors/font_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.5, 5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.420629, 0, 0.0606273, 1), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(2.53333),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"play_fx"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3gasg"]
+_data = {
+"RESET": SubResource("Animation_cl24c"),
+"animate_title": SubResource("Animation_hasfw")
+}
+
+[node name="TitleScreen" type="Node2D"]
+position = Vector2(-3, -4)
+script = ExtResource("1_mxu32")
+
+[node name="Background1" type="Sprite2D" parent="."]
+position = Vector2(577.5, 324.5)
+scale = Vector2(2.72066, 1.69531)
+texture = ExtResource("2_3fh2s")
+
+[node name="Background2" type="Sprite2D" parent="."]
+position = Vector2(576.5, 460.5)
+scale = Vector2(2.71596, 1.02344)
+texture = ExtResource("3_4wxb2")
+
+[node name="Label" type="Label" parent="."]
+offset_right = 1153.0
+offset_bottom = 425.0
+theme_override_colors/font_color = Color(0.420629, 0, 0.0606273, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_j118e")
+theme_override_font_sizes/font_size = 80
+text = "Shadow of Happiness"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Label"]
+libraries = {
+"": SubResource("AnimationLibrary_3gasg")
+}
+autoplay = "animate_title"
+
+[node name="Button" type="Button" parent="."]
+offset_left = 485.0
+offset_top = 326.0
+offset_right = 618.0
+offset_bottom = 383.0
+theme_override_fonts/font = ExtResource("4_j118e")
+theme_override_font_sizes/font_size = 20
+text = "Start"
+
+[node name="BackMusic" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_sadwa")
+autoplay = true
+
+[node name="TitleFx01" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("6_73vuj")
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
