@@ -1,0 +1,130 @@
+[gd_scene load_steps=11 format=3 uid="uid://8bjhmey88tm4"]
+
+[ext_resource type="FontFile" uid="uid://dleqlbke7wkm2" path="res://assets/fonts/c-64.ttf" id="1_6cndd"]
+[ext_resource type="Script" path="res://scripts/ui/text_box.gd" id="1_t5xjp"]
+[ext_resource type="FontFile" uid="uid://bvrybk1n0ilqc" path="res://assets/fonts/HelpMe.ttf" id="3_grckx"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4ss0h"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.49683, 0.369274, 0.12128, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="Theme" id="Theme_5fpd4"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_5e6nv"]
+device = -1
+keycode = 4194309
+
+[sub_resource type="Shortcut" id="Shortcut_6ly0n"]
+events = [SubResource("InputEventKey_5e6nv")]
+
+[sub_resource type="Animation" id="Animation_5p0ft"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextboxPanel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_4kbly"]
+resource_name = "fade_in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextboxPanel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_w1w6w"]
+_data = {
+"RESET": SubResource("Animation_5p0ft"),
+"fade_in": SubResource("Animation_4kbly")
+}
+
+[node name="Textbox" type="CanvasLayer"]
+script = ExtResource("1_t5xjp")
+
+[node name="TextboxPanel" type="Panel" parent="."]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 35.0
+offset_top = -529.0
+offset_right = -36.0
+offset_bottom = -211.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_4ss0h")
+
+[node name="TextboxMargin" type="MarginContainer" parent="TextboxPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_5fpd4")
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 40
+
+[node name="TextboxValue" type="RichTextLabel" parent="TextboxPanel/TextboxMargin"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_6cndd")
+theme_override_fonts/mono_font = ExtResource("1_6cndd")
+theme_override_fonts/italics_font = ExtResource("1_6cndd")
+theme_override_fonts/bold_italics_font = ExtResource("1_6cndd")
+theme_override_fonts/bold_font = ExtResource("1_6cndd")
+text = "Default text value"
+
+[node name="TextboxTimer" type="Timer" parent="TextboxPanel/TextboxMargin/TextboxValue"]
+unique_name_in_owner = true
+
+[node name="TextboxButton" type="Button" parent="TextboxPanel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -30.5
+offset_top = -51.0
+offset_right = 30.5
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("3_grckx")
+shortcut = SubResource("Shortcut_6ly0n")
+text = "Close"
+
+[node name="TextboxAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_w1w6w")
+}
+autoplay = "fade_in"
+
+[connection signal="pressed" from="TextboxPanel/TextboxButton" to="." method="_on_button_pressed"]

@@ -5,7 +5,7 @@ var audio_util = preload("res://scripts/utils/audio_util.gd").new()
 var scenes_util = preload("res://scripts/utils/scenes_util.gd").new()
 @onready var textbox: CanvasLayer = $Textbox
 @onready var audio_player: AudioStreamPlayer2D = $AudioStreamPlayer2D
-
+ 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	set_text()

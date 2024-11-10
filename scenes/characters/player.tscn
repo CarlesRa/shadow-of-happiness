@@ -1,9 +1,12 @@
-[gd_scene load_steps=26 format=3 uid="uid://y5f8j8hordbq"]
+[gd_scene load_steps=33 format=3 uid="uid://y5f8j8hordbq"]
 
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="1_6h6gr"]
 [ext_resource type="Texture2D" uid="uid://c5akrtbb7sawr" path="res://assets/characters/player/IDLE.png" id="1_aywqw"]
+[ext_resource type="PackedScene" uid="uid://cwxi1d6lr4gbe" path="res://scenes/ui/life_bar.tscn" id="2_00h1l"]
 [ext_resource type="Texture2D" uid="uid://4logrf6pjtbn" path="res://assets/characters/player/ATTACK 1.png" id="2_2kucn"]
 [ext_resource type="Texture2D" uid="uid://bpqs7de3b4hpg" path="res://assets/characters/player/RUN.png" id="3_u212l"]
+[ext_resource type="Texture2D" uid="uid://d070ythd1ppew" path="res://assets/characters/player/HURT.png" id="4_0coms"]
+[ext_resource type="AudioStream" uid="uid://dnwqu6xcyn2ab" path="res://audio/sfx/sword_sfx.wav" id="5_7cs6l"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0pmws"]
 atlas = ExtResource("2_2kucn")
@@ -24,6 +27,22 @@ region = Rect2(288, 0, 96, 96)
 [sub_resource type="AtlasTexture" id="AtlasTexture_a0os8"]
 atlas = ExtResource("2_2kucn")
 region = Rect2(384, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j3rqp"]
+atlas = ExtResource("4_0coms")
+region = Rect2(0, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vasqj"]
+atlas = ExtResource("4_0coms")
+region = Rect2(96, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_62l1b"]
+atlas = ExtResource("4_0coms")
+region = Rect2(192, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nyvfe"]
+atlas = ExtResource("4_0coms")
+region = Rect2(288, 0, 96, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yvr62"]
 atlas = ExtResource("1_aywqw")
@@ -105,6 +124,23 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_j3rqp")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_vasqj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_62l1b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nyvfe")
+}],
+"loop": true,
+"name": &"hurt",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_yvr62")
 }, {
 "duration": 1.0,
@@ -162,21 +198,40 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_py2pp"]
-size = Vector2(13, 32)
+size = Vector2(15, 27)
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_6h6gr")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_6ug06")
-animation = &"run"
+animation = &"idle"
+autoplay = "idle"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1.5, 17)
+[node name="PlayerCollision" type="CollisionShape2D" parent="."]
+position = Vector2(2.5, 19.5)
 shape = SubResource("RectangleShape2D_py2pp")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(1, 16)
-zoom = Vector2(3, 3)
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_7cs6l")
+bus = &"Player"
+
+[node name="LifeBar" parent="." instance=ExtResource("2_00h1l")]
+offset_left = -15.0
+offset_top = -8.0
+offset_right = 16.0
+offset_bottom = -6.0
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="RayCastRight" type="RayCast2D" parent="."]
+position = Vector2(2, 23)
+target_position = Vector2(42, 0)
+
+[node name="RayCastLeft" type="RayCast2D" parent="."]
+position = Vector2(2, 23)
+target_position = Vector2(-42, 0)
 
 [connection signal="animation_looped" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_looped"]
+[connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
