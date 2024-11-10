@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://y5f8j8hordbq"]
+[gd_scene load_steps=34 format=3 uid="uid://y5f8j8hordbq"]
 
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="1_6h6gr"]
 [ext_resource type="Texture2D" uid="uid://c5akrtbb7sawr" path="res://assets/characters/player/IDLE.png" id="1_aywqw"]
@@ -126,7 +126,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_j3rqp")
 }, {
-"duration": 2.0,
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_vasqj")
 }, {
 "duration": 1.0,
@@ -137,7 +137,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"hurt",
-"speed": 5.0
+"speed": 13.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -200,13 +200,16 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_py2pp"]
 size = Vector2(13, 31)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yhagk"]
+size = Vector2(52, 24)
+
 [node name="Player" type="CharacterBody2D"]
-collision_mask = 2
+collision_layer = 2
 script = ExtResource("1_6h6gr")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_6ug06")
-animation = &"idle"
+animation = &"attack"
 autoplay = "idle"
 
 [node name="PlayerCollision" type="CollisionShape2D" parent="."]
@@ -225,6 +228,16 @@ offset_bottom = -6.0
 
 [node name="Timer" type="Timer" parent="."]
 
+[node name="AttackAreaRight" type="Area2D" parent="."]
+collision_mask = 8
+
+[node name="AttackCollisionRight" type="CollisionShape2D" parent="AttackAreaRight"]
+unique_name_in_owner = true
+position = Vector2(25, 19)
+shape = SubResource("RectangleShape2D_yhagk")
+disabled = true
+debug_color = Color(0.753812, 0.43404, 0.393293, 0.42)
+
 [connection signal="animation_looped" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_looped"]
 [connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="AttackAreaRight" to="." method="_on_attack_area_right_body_entered"]

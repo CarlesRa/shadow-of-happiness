@@ -19,7 +19,7 @@ func set_text() -> void:
 	textbox.set_text_values(values)
 
 func _on_textbox_close_btn_pressed() -> void:	
-	audio_util.fade_out_audio(audio_player, change_scene)
+	audio_util.fade_out_audio(audio_player, change_scene, -60, 3)
 
 func change_scene() -> void:
 	var level_01_world: PackedScene = preload(LEVEL)

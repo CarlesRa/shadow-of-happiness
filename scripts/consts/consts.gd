@@ -5,3 +5,6 @@ const ANIMATION_RUN = "run"
 const ANIMATION_JUMP = "jump"
 const ANIMATION_HURT = "hurt"
 const ANIMATION_DEATH = "death"
+
+# Groups
+const GROUP_ENEMIES = "enemies"

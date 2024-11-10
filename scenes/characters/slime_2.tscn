@@ -1,90 +1,93 @@
-[gd_scene load_steps=26 format=3 uid="uid://dvteswp5efne0"]
+[gd_scene load_steps=27 format=3 uid="uid://vq6qiece2l3t"]
 
-[ext_resource type="Script" path="res://scripts/enemies/slime.gd" id="1_gyec2"]
-[ext_resource type="Texture2D" uid="uid://dahrptm54g853" path="res://assets/characters/smile/smile.png" id="2_q7gwe"]
-[ext_resource type="PackedScene" uid="uid://cwxi1d6lr4gbe" path="res://scenes/ui/life_bar.tscn" id="3_jcn8x"]
+[ext_resource type="Script" path="res://scripts/enemies/slime_2.gd" id="1_av3et"]
+[ext_resource type="Texture2D" uid="uid://dahrptm54g853" path="res://assets/characters/smile/smile.png" id="1_cad0y"]
+[ext_resource type="PackedScene" uid="uid://cwxi1d6lr4gbe" path="res://scenes/ui/life_bar.tscn" id="2_o621p"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xe37w"]
+size = Vector2(32, 13)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3cm4n"]
-atlas = ExtResource("2_q7gwe")
+atlas = ExtResource("1_cad0y")
 region = Rect2(0, 25, 32, 25)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bc3ha"]
-atlas = ExtResource("2_q7gwe")
+atlas = ExtResource("1_cad0y")
 region = Rect2(32, 25, 32, 25)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ias86"]
-atlas = ExtResource("2_q7gwe")
+atlas = ExtResource("1_cad0y")
 region = Rect2(64, 25, 32, 25)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2uhrb"]
-atlas = ExtResource("2_q7gwe")
+atlas = ExtResource("1_cad0y")
 region = Rect2(96, 25, 32, 25)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xb7jp"]
-atlas = ExtResource("2_q7gwe")
+atlas = ExtResource("1_cad0y")
 region = Rect2(0, 50, 32, 25)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_55m0g"]
-atlas = ExtResource("2_q7gwe")
+atlas = ExtResource("1_cad0y")
 region = Rect2(32, 50, 32, 25)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ypo5l"]
-atlas = ExtResource("2_q7gwe")
+atlas = ExtResource("1_cad0y")
 region = Rect2(64, 50, 32, 25)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_y2jhc"]
-atlas = ExtResource("2_q7gwe")
+atlas = ExtResource("1_cad0y")
 region = Rect2(96, 50, 32, 25)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_paboe"]
-atlas = ExtResource("2_q7gwe")
+atlas = ExtResource("1_cad0y")
 region = Rect2(128, 50, 32, 25)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kfolf"]
-atlas = ExtResource("2_q7gwe")
+atlas = ExtResource("1_cad0y")
 region = Rect2(160, 50, 32, 25)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_562fq"]
-atlas = ExtResource("2_q7gwe")
+atlas = ExtResource("1_cad0y")
 region = Rect2(192, 50, 32, 25)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5kri1"]
-atlas = ExtResource("2_q7gwe")
+atlas = ExtResource("1_cad0y")
 region = Rect2(224, 50, 32, 25)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fgqkt"]
-atlas = ExtResource("2_q7gwe")
+atlas = ExtResource("1_cad0y")
 region = Rect2(0, 0, 32, 25)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tayy5"]
-atlas = ExtResource("2_q7gwe")
+atlas = ExtResource("1_cad0y")
 region = Rect2(32, 0, 32, 25)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6t38p"]
-atlas = ExtResource("2_q7gwe")
+atlas = ExtResource("1_cad0y")
 region = Rect2(64, 0, 32, 25)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_785y0"]
-atlas = ExtResource("2_q7gwe")
+atlas = ExtResource("1_cad0y")
 region = Rect2(96, 0, 32, 25)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p2n5q"]
-atlas = ExtResource("2_q7gwe")
+atlas = ExtResource("1_cad0y")
 region = Rect2(128, 0, 32, 25)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_eybo5"]
-atlas = ExtResource("2_q7gwe")
+atlas = ExtResource("1_cad0y")
 region = Rect2(160, 0, 32, 25)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x3gm1"]
-atlas = ExtResource("2_q7gwe")
+atlas = ExtResource("1_cad0y")
 region = Rect2(192, 0, 32, 25)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_b6mdq"]
-atlas = ExtResource("2_q7gwe")
+atlas = ExtResource("1_cad0y")
 region = Rect2(224, 0, 32, 25)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_d5joe"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_t1kf2"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -162,18 +165,22 @@ animations = [{
 "speed": 8.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_dyijc"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xyiig"]
 size = Vector2(32, 13)
 
-[node name="Slime" type="Node2D"]
-script = ExtResource("1_gyec2")
+[node name="Slime2" type="CharacterBody2D"]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_av3et")
+
+[node name="SlimeCollision" type="CollisionShape2D" parent="."]
+position = Vector2(1, 5.5)
+shape = SubResource("RectangleShape2D_xe37w")
 
 [node name="AnimatedSprite" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_d5joe")
+sprite_frames = SubResource("SpriteFrames_t1kf2")
 animation = &"run"
 autoplay = "run"
-frame = 1
-frame_progress = 0.357834
 
 [node name="RaycastRight" type="RayCast2D" parent="."]
 target_position = Vector2(15, 1)
@@ -190,18 +197,21 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DamageBox"]
 position = Vector2(1, 5.5)
-shape = SubResource("RectangleShape2D_dyijc")
+shape = SubResource("RectangleShape2D_xyiig")
+debug_color = Color(0.718502, 0.45821, 0.403289, 0.42)
 
 [node name="StreamPlayer" type="AudioStreamPlayer2D" parent="."]
 bus = &"Slime"
 playback_type = 1
 
-[node name="LifeBar" parent="." instance=ExtResource("3_jcn8x")]
+[node name="LifeBar" parent="." instance=ExtResource("2_o621p")]
 offset_left = -15.0
 offset_top = -9.0
 offset_right = 16.0
 offset_bottom = -7.0
+max_value = 50.0
+value = 50.0
 
 [connection signal="animation_looped" from="AnimatedSprite" to="." method="_on_animated_sprite_animation_looped"]
-[connection signal="body_entered" from="DamageBox" to="." method="_on_detection_body_entered"]
-[connection signal="body_exited" from="DamageBox" to="." method="_on_detection_body_exited"]
+[connection signal="body_entered" from="DamageBox" to="." method="_on_damage_box_body_entered"]
+[connection signal="body_exited" from="DamageBox" to="." method="_on_damage_box_body_exited"]

@@ -4,7 +4,7 @@ const COLOR_LOW = Color(1, 0, 0)
 const COLOR_MEDIUM = Color(1, 0.65, 0)
 const COLOR_HIGH = Color(0, 1, 0)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	update_color()
 
 func update_color():

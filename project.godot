@@ -11,13 +11,15 @@ config_version=5
 [application]
 
 config/name="Shadow of Happiness"
-run/main_scene="res://scenes/title_screen.tscn"
+run/main_scene="res://scenes/levels/level01/level_01_world.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
 GlobalSignals="*res://scripts/global/global_signals.gd"
+PlayerConfig="*res://scripts/player/player_config.gd"
+Consts="*res://scripts/consts/consts.gd"
 
 [display]
 
