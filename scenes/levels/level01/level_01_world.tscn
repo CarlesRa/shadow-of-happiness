@@ -3,7 +3,7 @@
 [ext_resource type="AudioStream" uid="uid://bi7yl7uq6mcg" path="res://audio/music/level01-music.mp3" id="1_8y6bm"]
 [ext_resource type="PackedScene" uid="uid://y5f8j8hordbq" path="res://scenes/characters/player.tscn" id="2_eem7t"]
 [ext_resource type="Texture2D" uid="uid://b7ipb055rw3nj" path="res://assets/sprites/Green Tile V1.1.png" id="3_hfrkv"]
-[ext_resource type="PackedScene" uid="uid://vq6qiece2l3t" path="res://scenes/characters/slime_2.tscn" id="5_b6gbu"]
+[ext_resource type="PackedScene" uid="uid://vq6qiece2l3t" path="res://scenes/characters/slime.tscn" id="5_b6gbu"]
 [ext_resource type="PackedScene" uid="uid://ckd3v1rplba1l" path="res://scenes/global/killzone.tscn" id="5_iev21"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2kker"]
@@ -138,5 +138,5 @@ position = Vector2(-462, 35)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
 shape = SubResource("WorldBoundaryShape2D_hcou0")
 
-[node name="Slime2" parent="." instance=ExtResource("5_b6gbu")]
-position = Vector2(-260, -12)
+[node name="Slime" parent="." instance=ExtResource("5_b6gbu")]
+position = Vector2(-188, -12)

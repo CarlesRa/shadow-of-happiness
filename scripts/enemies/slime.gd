@@ -1,9 +1,8 @@
-extends Node2D
+extends CharacterBody2D
 
 const SPEED = 60
 var audio_util = preload("res://scripts/utils/audio_util.gd").new()
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-var velocity = Vector2.ZERO
 var direction = -1
 var player_in_sight = false
 var is_death = false
@@ -17,9 +16,10 @@ var sfx_bite = preload("res://audio/sfx/slime_bite.wav")
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite
 @onready var audio_player: AudioStreamPlayer2D = $StreamPlayer
 @onready var life_bar: ProgressBar = $LifeBar
+@onready var slime_collision: CollisionShape2D = $SlimeCollision
 
 func _ready() -> void:
-	add_to_group("enemies")
+	add_to_group(Consts.GROUP_ENEMIES)
 	GlobalSignals.connect("player_attack", handle_damage)
 	audio_util.load_sfx(audio_player, sfx_run)
 	audio_player.play()
@@ -54,8 +54,7 @@ func handle_flip_h():
 	if direction < 0:
 		animated_sprite.flip_h = false
 		
-
-func _on_detection_body_entered(body: Node2D) -> void:
+func _on_damage_box_body_entered(body: Node2D) -> void:
 	if body.name == "Player":
 		handle_flip_h()
 		player_in_sight = true
@@ -64,8 +63,7 @@ func _on_detection_body_entered(body: Node2D) -> void:
 		audio_player.play()
 		player_position = body.position
 
-
-func _on_detection_body_exited(body: Node2D) -> void:
+func _on_damage_box_body_exited(body: Node2D) -> void:
 	if body.name == "Player":
 		player_in_sight = false
 		animated_sprite.play(Consts.ANIMATION_RUN)
@@ -80,7 +78,8 @@ func _on_animated_sprite_animation_looped() -> void:
 		queue_free()
 
 func handle_damage(damage: float) -> void:
-	if life_bar.value - damage <= 0 or life_bar.value :
+	animated_sprite.play(Consts.ANIMATION_HURT)
+	if life_bar.value - damage <= 0 :
 		is_death = true
 		life_bar.value = 0
 		animated_sprite.play(Consts.ANIMATION_DEATH)

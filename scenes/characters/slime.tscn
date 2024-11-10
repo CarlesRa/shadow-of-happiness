@@ -1,8 +1,11 @@
-[gd_scene load_steps=26 format=3 uid="uid://dvteswp5efne0"]
+[gd_scene load_steps=31 format=3 uid="uid://vq6qiece2l3t"]
 
 [ext_resource type="Script" path="res://scripts/enemies/slime.gd" id="1_gyec2"]
 [ext_resource type="Texture2D" uid="uid://dahrptm54g853" path="res://assets/characters/smile/smile.png" id="2_q7gwe"]
 [ext_resource type="PackedScene" uid="uid://cwxi1d6lr4gbe" path="res://scenes/ui/life_bar.tscn" id="3_jcn8x"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xe37w"]
+size = Vector2(32, 13)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3cm4n"]
 atlas = ExtResource("2_q7gwe")
@@ -52,6 +55,22 @@ region = Rect2(192, 50, 32, 25)
 atlas = ExtResource("2_q7gwe")
 region = Rect2(224, 50, 32, 25)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_scbtx"]
+atlas = ExtResource("2_q7gwe")
+region = Rect2(128, 25, 32, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jeb17"]
+atlas = ExtResource("2_q7gwe")
+region = Rect2(160, 25, 32, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lupgp"]
+atlas = ExtResource("2_q7gwe")
+region = Rect2(192, 25, 32, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5n573"]
+atlas = ExtResource("2_q7gwe")
+region = Rect2(224, 25, 32, 25)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_fgqkt"]
 atlas = ExtResource("2_q7gwe")
 region = Rect2(0, 0, 32, 25)
@@ -84,7 +103,7 @@ region = Rect2(192, 0, 32, 25)
 atlas = ExtResource("2_q7gwe")
 region = Rect2(224, 0, 32, 25)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_d5joe"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_t1kf2"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -134,6 +153,23 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_scbtx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jeb17")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lupgp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5n573")
+}],
+"loop": true,
+"name": &"hurt",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_fgqkt")
 }, {
 "duration": 1.0,
@@ -162,18 +198,22 @@ animations = [{
 "speed": 8.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_dyijc"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xyiig"]
 size = Vector2(32, 13)
 
-[node name="Slime" type="Node2D"]
+[node name="Slime" type="CharacterBody2D"]
+collision_layer = 8
+collision_mask = 0
 script = ExtResource("1_gyec2")
 
+[node name="SlimeCollision" type="CollisionShape2D" parent="."]
+position = Vector2(1, 5.5)
+shape = SubResource("RectangleShape2D_xe37w")
+
 [node name="AnimatedSprite" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_d5joe")
-animation = &"run"
+sprite_frames = SubResource("SpriteFrames_t1kf2")
+animation = &"hurt"
 autoplay = "run"
-frame = 1
-frame_progress = 0.357834
 
 [node name="RaycastRight" type="RayCast2D" parent="."]
 target_position = Vector2(15, 1)
@@ -190,7 +230,8 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DamageBox"]
 position = Vector2(1, 5.5)
-shape = SubResource("RectangleShape2D_dyijc")
+shape = SubResource("RectangleShape2D_xyiig")
+debug_color = Color(0.718502, 0.45821, 0.403289, 0.42)
 
 [node name="StreamPlayer" type="AudioStreamPlayer2D" parent="."]
 bus = &"Slime"
@@ -201,7 +242,9 @@ offset_left = -15.0
 offset_top = -9.0
 offset_right = 16.0
 offset_bottom = -7.0
+max_value = 50.0
+value = 50.0
 
 [connection signal="animation_looped" from="AnimatedSprite" to="." method="_on_animated_sprite_animation_looped"]
-[connection signal="body_entered" from="DamageBox" to="." method="_on_detection_body_entered"]
-[connection signal="body_exited" from="DamageBox" to="." method="_on_detection_body_exited"]
+[connection signal="body_entered" from="DamageBox" to="." method="_on_damage_box_body_entered"]
+[connection signal="body_exited" from="DamageBox" to="." method="_on_damage_box_body_exited"]
