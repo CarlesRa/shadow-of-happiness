@@ -198,9 +198,10 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_py2pp"]
-size = Vector2(15, 27)
+size = Vector2(13, 31)
 
 [node name="Player" type="CharacterBody2D"]
+collision_mask = 2
 script = ExtResource("1_6h6gr")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -209,7 +210,7 @@ animation = &"idle"
 autoplay = "idle"
 
 [node name="PlayerCollision" type="CollisionShape2D" parent="."]
-position = Vector2(2.5, 19.5)
+position = Vector2(1.5, 17.5)
 shape = SubResource("RectangleShape2D_py2pp")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
@@ -223,14 +224,6 @@ offset_right = 16.0
 offset_bottom = -6.0
 
 [node name="Timer" type="Timer" parent="."]
-
-[node name="RayCastRight" type="RayCast2D" parent="."]
-position = Vector2(2, 23)
-target_position = Vector2(42, 0)
-
-[node name="RayCastLeft" type="RayCast2D" parent="."]
-position = Vector2(2, 23)
-target_position = Vector2(-42, 0)
 
 [connection signal="animation_looped" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_looped"]
 [connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]

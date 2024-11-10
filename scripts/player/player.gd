@@ -15,8 +15,6 @@ var footstep_frames: Array = [0, 2, 4, 6]
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var audio_player: AudioStreamPlayer2D = $AudioStreamPlayer2D
 @onready var life_bar: ProgressBar = $LifeBar
-@onready var ray_cast_left: RayCast2D = $RayCastLeft
-@onready var ray_cast_right: RayCast2D = $RayCastRight
 
 func _ready() -> void:
 	GlobalSignals.connect("attack_player", handle_damage)
@@ -32,8 +30,6 @@ func _physics_process(delta: float) -> void:
 		is_attacking = true
 		audio_util.load_sfx(audio_player, sfx_sword)
 		audio_player.play()
-		if ray_cast_left.is_colliding() or ray_cast_right.is_colliding():
-			GlobalSignals.emit_signal("player_attack", 50)
 
 	# Handle jump.
 	if Input.is_action_just_pressed(consts.ANIMATION_JUMP) and is_on_floor():
