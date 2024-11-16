@@ -18,10 +18,10 @@ config/icon="res://icon.svg"
 [autoload]
 
 GlobalSignals="*res://scripts/global/global_signals.gd"
-PlayerConfig="*res://scripts/player/player_config.gd"
 ScenesUtil="*res://scripts/utils/scenes_util.gd"
 AudioUtil="*res://scripts/utils/audio_util.gd"
-Consts="*res://scripts/consts/consts.gd"
+Consts="*res://scripts/global/consts.gd"
+PlayerConfig="*res://scripts/global/player_config.gd"
 
 [display]
 

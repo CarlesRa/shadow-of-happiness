@@ -111,12 +111,9 @@ func reload_scene() -> void:
 	Engine.time_scale = 1
 	get_tree().reload_current_scene()
 
-
 func _on_attack_area_right_body_entered(body: Node2D) -> void:
 	if body.is_in_group(Consts.GROUP_ENEMIES) and is_attacking:
 		body.take_damage(PlayerConfig.force)
-
-
 
 func _on_camera_area_body_entered(body: Node2D) -> void:
 	body.enable_audio()

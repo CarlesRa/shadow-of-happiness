@@ -252,7 +252,7 @@ disabled = true
 debug_color = Color(0.876382, 0.222442, 0.653944, 0.42)
 
 [node name="PlayerCamera" type="Camera2D" parent="."]
-zoom = Vector2(4, 4)
+zoom = Vector2(3, 3)
 limit_bottom = 30
 limit_smoothed = true
 
