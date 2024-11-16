@@ -1,11 +1,10 @@
-extends Node2D
+extends Control
+
 
 const LEVEL = "res://scenes/levels/level01/level_01_world.tscn"
-var audio_util = preload("res://scripts/utils/audio_util.gd").new()
-var scenes_util = preload("res://scripts/utils/scenes_util.gd").new()
-@onready var textbox: CanvasLayer = $Textbox
-@onready var audio_player: AudioStreamPlayer2D = $AudioStreamPlayer2D
- 
+@onready var textbox: CanvasLayer = $TextureRect/Textbox
+@onready var audio_player: AudioStreamPlayer2D = $AudioPlayer
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	set_text()
@@ -19,8 +18,8 @@ func set_text() -> void:
 	textbox.set_text_values(values)
 
 func _on_textbox_close_btn_pressed() -> void:	
-	audio_util.fade_out_audio(audio_player, change_scene, -60, 3)
+	AudioUtil.fade_out_audio(audio_player, change_scene, -60, 3)
 
 func change_scene() -> void:
 	var level_01_world: PackedScene = preload(LEVEL)
-	scenes_util.change_scene(self, level_01_world)
+	get_tree().change_scene_to_packed(level_01_world)

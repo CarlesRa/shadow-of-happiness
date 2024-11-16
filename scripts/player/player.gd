@@ -3,11 +3,11 @@ extends CharacterBody2D
 const SPEED = 100.0
 const JUMP_VELOCITY = -300.0
 const START_POSITION = Vector2()
+const SIGNAL_ATTACK_PLAYER = "attack_player"
 
 var is_attacking: bool = false
 var sfx_sword: AudioStream = load("res://audio/sfx/sword_sfx.wav")
 var sfx_run: AudioStream = load("res://audio/sfx/running_sfx.wav")
-var audio_util = preload("res://scripts/utils/audio_util.gd").new()
 var footstep_frames: Array = [0, 2, 4, 6]
 
 @onready var timer: Timer = $Timer
@@ -18,33 +18,18 @@ var footstep_frames: Array = [0, 2, 4, 6]
 @onready var attack_collision_left: CollisionShape2D = $AttackAreaLeft/AttackCollisionLeft
 
 func _ready() -> void:
-	GlobalSignals.connect("attack_player", handle_damage)
-	GlobalSignals.connect("restore_player_health", handle_health)
+	GlobalSignals.connect(Consts.S_ATTACK_PLAYER, handle_damage)
+	GlobalSignals.connect(Consts.S_RESTORE_PLAYER_HEALTH, handle_health)
 	animated_sprite.play(Consts.ANIMATION_IDLE)
 
 func _physics_process(delta: float) -> void:
-	# Add the gravity.
-	if not is_on_floor():
-		velocity += get_gravity() * delta
-		
-	# Handle attack
-	if Input.is_action_just_pressed(Consts.ANIMATION_ATTACK):
-		is_attacking = true
-		if animated_sprite.flip_h == true:
-			attack_collision_left.disabled = false
-		else:
-			attack_collision_right.disabled = false
-		audio_util.load_sfx(audio_player, sfx_sword)
-		audio_player.play()
-
-	# Handle jump.
-	if Input.is_action_just_pressed(Consts.ANIMATION_JUMP) and is_on_floor():
-		velocity.y = JUMP_VELOCITY
+	apply_gravity(delta)		
+	handle_inputs()
 		
 	# Get the input direction: -1, 0, 1
 	var direction := Input.get_axis("move_left", "move_right")
 	
-		# Flip the sprite
+	# Flip the sprite
 	if direction > 0:
 		animated_sprite.flip_h = false
 	elif direction < 0:
@@ -71,6 +56,25 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
+func apply_gravity(delta: float) -> void:
+	if not is_on_floor():
+		velocity += get_gravity() * delta
+
+func handle_inputs() -> void:
+	# Handle attack
+	if Input.is_action_just_pressed(Consts.ANIMATION_ATTACK) and not is_attacking:
+		is_attacking = true
+		if animated_sprite.flip_h == true:
+			attack_collision_left.disabled = false
+		else:
+			attack_collision_right.disabled = false
+		AudioUtil.load_sfx(audio_player, sfx_sword)
+		audio_player.play()
+
+	# Handle jump.
+	if Input.is_action_just_pressed(Consts.ANIMATION_JUMP) and is_on_floor():
+		velocity.y = JUMP_VELOCITY
+
 func _on_animated_sprite_2d_animation_looped() -> void:	
 	if animated_sprite.animation == Consts.ANIMATION_ATTACK:
 		is_attacking = false
@@ -80,7 +84,7 @@ func _on_animated_sprite_2d_animation_looped() -> void:
 
 func _on_animated_sprite_2d_frame_changed() -> void:
 	if (animated_sprite.animation != Consts.ANIMATION_RUN): return	
-	audio_util.load_sfx(audio_player, sfx_run)
+	AudioUtil.load_sfx(audio_player, sfx_run)
 	if animated_sprite.frame in footstep_frames:
 		audio_player.play()
 
@@ -95,7 +99,7 @@ func die():
 	life_bar.value = 0
 	Engine.time_scale = 0.2
 	get_node("PlayerCollision").queue_free()
-	audio_util.fade_out_audio(audio_player, reload_scene,-200, 1)
+	AudioUtil.fade_out_audio(audio_player, reload_scene,-200, 1)
 
 func handle_health(health: float) -> void:
 	if life_bar.value + health > 100:
@@ -110,4 +114,12 @@ func reload_scene() -> void:
 
 func _on_attack_area_right_body_entered(body: Node2D) -> void:
 	if body.is_in_group(Consts.GROUP_ENEMIES) and is_attacking:
-		body.handle_damage(PlayerConfig.force)
+		body.take_damage(PlayerConfig.force)
+
+
+
+func _on_camera_area_body_entered(body: Node2D) -> void:
+	body.enable_audio()
+
+func _on_camera_area_body_exited(body: Node2D) -> void:
+	body.disable_audio()

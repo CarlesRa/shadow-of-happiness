@@ -1,86 +1,89 @@
 extends CharacterBody2D
-
-const SPEED = 60
-var audio_util = preload("res://scripts/utils/audio_util.gd").new()
-var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-var direction = -1
-var player_in_sight = false
+@export var damage = 10
+const SPEED = 60.0
+var player_detected = false
 var is_death = false
-var player_position = Vector2.ZERO
-var sfx_run = preload("res://audio/sfx/slime_run_sfx.wav")
-var sfx_bite = preload("res://audio/sfx/slime_bite.wav")
+var direction = -1
 
-@onready var raycast_right: RayCast2D = $RaycastRight
+var sfx_walk = preload("res://audio/sfx/slime_run_sfx.wav")
+var sfx_bite = preload("res://audio/sfx/slime_bite.wav")
+var sfx_attacked = preload("res://audio/sfx/enemie_attacked_01.wav")
+
+@onready var slime_animation: AnimatedSprite2D = $SlimeAnimation
 @onready var ray_cast_left: RayCast2D = $RayCastLeft
-@onready var ray_cast_bottom: RayCast2D = $RayCastBottom
-@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite
-@onready var audio_player: AudioStreamPlayer2D = $StreamPlayer
+@onready var ray_cast_right: RayCast2D = $RayCastRight
+@onready var audio_player: AudioStreamPlayer2D = $AudioPlayer
 @onready var life_bar: ProgressBar = $LifeBar
-@onready var slime_collision: CollisionShape2D = $SlimeCollision
 
 func _ready() -> void:
 	add_to_group(Consts.GROUP_ENEMIES)
-	GlobalSignals.connect("player_attack", handle_damage)
-	audio_util.load_sfx(audio_player, sfx_run)
-	audio_player.play()
+	walk()
 
-func _physics_process(delta: float) -> void:
-	if is_death: return
-	apply_gravity(delta)
-	handle_x_direction(delta)
-	
-func apply_gravity(delta: float) -> void:
-	ray_cast_bottom.force_raycast_update()
-	if not ray_cast_bottom.is_colliding():
-		velocity.y += gravity * delta
-	else:
-		velocity.y = 0
-	position.y += velocity.y * delta
-	
-func handle_x_direction(delta: float) -> void:
-	if player_in_sight:
-		direction = sign(player_position.x - position.x)
-	else:
-		handle_flip_h()
-		position.x += direction * SPEED * delta
+func _physics_process(delta: float) -> void:	
+	handle_gravity(delta)
+	handle_direction()
+	move_and_slide()
 
-func handle_flip_h():
-	if raycast_right.is_colliding():
-		direction = -1	
+func handle_gravity(delta: float) -> void:
+	if not is_on_floor():
+		velocity += get_gravity() * delta
+
+func handle_direction() -> void:
+	if player_detected or is_death: return
 	if ray_cast_left.is_colliding():
 		direction = 1
-	if direction > 0:
-		animated_sprite.flip_h = true
-	if direction < 0:
-		animated_sprite.flip_h = false
-		
-func _on_damage_box_body_entered(body: Node2D) -> void:
-	if body.name == "Player":
-		handle_flip_h()
-		player_in_sight = true
-		animated_sprite.play(Consts.ANIMATION_ATTACK)
-		audio_util.load_sfx(audio_player, sfx_bite)
-		audio_player.play()
-		player_position = body.position
+	if ray_cast_right.is_colliding():
+		direction = -1
+	velocity.x = direction * SPEED
+	slime_animation.flip_h = direction > 0
 
-func _on_damage_box_body_exited(body: Node2D) -> void:
-	if body.name == "Player":
-		player_in_sight = false
-		animated_sprite.play(Consts.ANIMATION_RUN)
-		audio_util.load_sfx(audio_player, sfx_run)
-		audio_player.play()		
-		handle_flip_h()
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	if body.name == Consts.PLAYER:
+		player_detected = true
+		attack()
 
-func _on_animated_sprite_animation_looped() -> void:
-	if animated_sprite.animation == Consts.ANIMATION_ATTACK:
-		GlobalSignals.emit_signal("attack_player", 5)
-	if animated_sprite.animation == Consts.ANIMATION_DEATH:
+func _on_player_detect_area_body_exited(body: Node2D) -> void:
+	if body.name == Consts.PLAYER:
+		player_detected = false
+		walk()
+
+func _on_slime_animation_animation_looped() -> void:
+	if slime_animation.animation == Consts.ANIMATION_ATTACK:
+		GlobalSignals.attack_player.emit(damage)
+	if slime_animation.animation == Consts.ANIMATION_HURT and player_detected:
+		attack()
+	if slime_animation.animation == Consts.ANIMATION_HURT and not player_detected:
+		walk()
+	if slime_animation.animation == Consts.ANIMATION_DEATH:
 		queue_free()
 
-func handle_damage(damage: float) -> void:
-	animated_sprite.play(Consts.ANIMATION_HURT)
-	if life_bar.value - damage <= 0 :
-		is_death = true
-		life_bar.value = 0
-		animated_sprite.play(Consts.ANIMATION_DEATH)
+func take_damage(damage: float) -> void:
+	attacked()
 	life_bar.value -= damage
+	if life_bar.value <= 0 :
+		is_death = true
+		die()
+
+func walk() -> void:
+	slime_animation.play(Consts.ANIMATION_WALK)
+	AudioUtil.load_sfx(audio_player, sfx_walk)
+	audio_player.play()
+
+func attack() -> void:
+	slime_animation.play(Consts.ANIMATION_ATTACK)
+	AudioUtil.load_sfx(audio_player, sfx_bite)
+	audio_player.play()
+
+func attacked() -> void:
+	slime_animation.play(Consts.ANIMATION_HURT)
+	AudioUtil.load_sfx(audio_player, sfx_attacked)
+	audio_player.play()
+
+func die() -> void:
+	slime_animation.play(Consts.ANIMATION_DEATH)
+
+func enable_audio() -> void:
+	audio_player.volume_db = 0
+
+func disable_audio() -> void:
+	audio_player.volume_db = -80
