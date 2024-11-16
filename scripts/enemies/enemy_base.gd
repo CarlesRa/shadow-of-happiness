@@ -3,7 +3,7 @@ extends CharacterBody2D
 @export var player_detected = false
 @export var is_death = false
 @export var direction = -1
-@export var damage: int
+@export var attack_amount: int
 @export var speed: int
 
 @export var sfx_walk: Resource
@@ -51,7 +51,7 @@ func _on_player_detect_area_body_exited(body: Node2D) -> void:
 
 func _on_animation_looped() -> void:
 	if animation.animation == Consts.ANIMATION_ATTACK:
-		GlobalSignals.attack_player.emit(damage)
+		GlobalSignals.attack_player.emit(attack_amount)
 	if animation.animation == Consts.ANIMATION_HURT and player_detected:
 		attack()
 	if animation.animation == Consts.ANIMATION_HURT and not player_detected:
@@ -59,9 +59,9 @@ func _on_animation_looped() -> void:
 	if animation.animation == Consts.ANIMATION_DEATH:
 		queue_free()
 
-func take_damage(damage: float) -> void:
+func take_damage(amount: float) -> void:
 	attacked()
-	life_bar.value -= damage
+	life_bar.value -= amount
 	if life_bar.value <= 0 :
 		is_death = true
 		die()
