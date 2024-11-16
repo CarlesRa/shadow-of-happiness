@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://pb7agj8us0h8"
-path="res://.godot/imported/wizard attack.png-c169bbc6306e5464fa0be2d451c9362d.ctex"
+uid="uid://v7qx4h3h0int"
+path="res://.godot/imported/wizard_attack-removebg-preview.png-04183896819380ef5a954c59c1fcc94c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/characters/wizard/wizard attack.png"
-dest_files=["res://.godot/imported/wizard attack.png-c169bbc6306e5464fa0be2d451c9362d.ctex"]
+source_file="res://assets/characters/wizard/wizard_attack-removebg-preview.png"
+dest_files=["res://.godot/imported/wizard_attack-removebg-preview.png-04183896819380ef5a954c59c1fcc94c.ctex"]
 
 [params]
 

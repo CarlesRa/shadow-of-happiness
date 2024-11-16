@@ -1,10 +1,9 @@
 extends CharacterBody2D
 
-const SPEED = 100.0
+const SPEED = 110.0
 const JUMP_VELOCITY = -300.0
 const START_POSITION = Vector2()
 const SIGNAL_ATTACK_PLAYER = "attack_player"
-
 var is_attacking: bool = false
 var sfx_sword: AudioStream = load("res://audio/sfx/sword_sfx.wav")
 var sfx_run: AudioStream = load("res://audio/sfx/running_sfx.wav")
@@ -75,15 +74,15 @@ func handle_inputs() -> void:
 	if Input.is_action_just_pressed(Consts.ANIMATION_JUMP) and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 
-func _on_animated_sprite_2d_animation_looped() -> void:	
+func _on_animated_sprite_2d_animation_finished() -> void:
 	if animated_sprite.animation == Consts.ANIMATION_ATTACK:
-		is_attacking = false
+		animated_sprite.play(Consts.ANIMATION_IDLE)
 		attack_collision_right.disabled = true
 		attack_collision_left.disabled = true
-		animated_sprite.play(Consts.ANIMATION_IDLE)
+		is_attacking = false
 
 func _on_animated_sprite_2d_frame_changed() -> void:
-	if (animated_sprite.animation != Consts.ANIMATION_RUN): return	
+	if (animated_sprite.animation != Consts.ANIMATION_RUN): return
 	AudioUtil.load_sfx(audio_player, sfx_run)
 	if animated_sprite.frame in footstep_frames:
 		audio_player.play()

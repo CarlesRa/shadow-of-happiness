@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b1ym2x55j0efk"
-path="res://.godot/imported/wizard fly forward.png-4e91f440a03f0da35cee7b7e4a078c7b.ctex"
+uid="uid://mdg4akww6s6n"
+path="res://.godot/imported/wizard_fly_forward-removebg-preview (1).png-a6e866816455486c1c094141f2657ea1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/characters/wizard/wizard fly forward.png"
-dest_files=["res://.godot/imported/wizard fly forward.png-4e91f440a03f0da35cee7b7e4a078c7b.ctex"]
+source_file="res://assets/characters/wizard/wizard_fly_forward-removebg-preview (1).png"
+dest_files=["res://.godot/imported/wizard_fly_forward-removebg-preview (1).png-a6e866816455486c1c094141f2657ea1.ctex"]
 
 [params]
 

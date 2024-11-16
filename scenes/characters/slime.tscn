@@ -109,7 +109,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"attack",
-"speed": 8.0
+"speed": 15.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -182,7 +182,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8yvdp"]
-size = Vector2(25, 13)
+size = Vector2(25, 3)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_btqmq"]
 size = Vector2(28, 11)
@@ -199,12 +199,10 @@ offset_bottom = -7.0
 
 [node name="SlimeAnimation" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_gmxy7")
-animation = &"hurt"
-frame = 2
-frame_progress = 0.484065
+animation = &"attack"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.5, 4.5)
+position = Vector2(0.5, 9.5)
 shape = SubResource("RectangleShape2D_8yvdp")
 
 [node name="PlayerDetectArea" type="Area2D" parent="."]
@@ -227,5 +225,5 @@ volume_db = -80.0
 bus = &"Slime"
 
 [connection signal="animation_looped" from="SlimeAnimation" to="." method="_on_animation_looped"]
-[connection signal="body_entered" from="PlayerDetectArea" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="PlayerDetectArea" to="." method="_on_player_detect_area_body_entered"]
 [connection signal="body_exited" from="PlayerDetectArea" to="." method="_on_player_detect_area_body_exited"]

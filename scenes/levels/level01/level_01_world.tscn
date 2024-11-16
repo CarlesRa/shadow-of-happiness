@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=4 uid="uid://bvdg403xaw1oj"]
+[gd_scene load_steps=14 format=4 uid="uid://bvdg403xaw1oj"]
 
 [ext_resource type="AudioStream" uid="uid://bi7yl7uq6mcg" path="res://audio/music/level01-music.mp3" id="1_8y6bm"]
 [ext_resource type="Texture2D" uid="uid://ca2ktkftrb3ku" path="res://assets/backgrounds/background1.png" id="1_qkgw8"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://b7ipb055rw3nj" path="res://assets/sprites/Green Tile V1.1.png" id="2_yrxbx"]
 [ext_resource type="PackedScene" uid="uid://ckd3v1rplba1l" path="res://scenes/global/killzone.tscn" id="5_iev21"]
 [ext_resource type="PackedScene" uid="uid://kajmyt65jy1x" path="res://scenes/characters/slime.tscn" id="5_tvepu"]
+[ext_resource type="PackedScene" uid="uid://s3xrwlqggblk" path="res://scenes/characters/wizard.tscn" id="6_c34da"]
 [ext_resource type="FontFile" uid="uid://dleqlbke7wkm2" path="res://assets/fonts/c-64.ttf" id="7_wt5dd"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_d52qs"]
@@ -133,7 +134,7 @@ tile_map_data = PackedByteArray("AADk/wAAAAAGAAUAAADl/wAAAAAGAAUAAADm/wAAAAAHAAU
 tile_set = SubResource("TileSet_vsie0")
 
 [node name="Player" parent="." instance=ExtResource("2_eem7t")]
-position = Vector2(-231, -33)
+position = Vector2(-301, -34)
 
 [node name="Enemies" type="Node" parent="."]
 
@@ -147,6 +148,12 @@ collision_mask = 3
 
 [node name="Slime3" parent="Enemies" instance=ExtResource("5_tvepu")]
 position = Vector2(388, -74)
+collision_mask = 3
+
+[node name="Wizard" parent="Enemies" instance=ExtResource("6_c34da")]
+position = Vector2(-29, -48)
+disable_mode = 1
+collision_layer = 8
 collision_mask = 3
 
 [node name="Killzone" parent="." instance=ExtResource("5_iev21")]
