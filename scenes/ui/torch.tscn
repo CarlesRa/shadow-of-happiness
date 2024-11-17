@@ -1,0 +1,91 @@
+[gd_scene load_steps=14 format=3 uid="uid://hvhpi11jlh8e"]
+
+[ext_resource type="Texture2D" uid="uid://b3lnena2jc3yx" path="res://assets/sprites/Torch Animated.png" id="1_bdi2k"]
+[ext_resource type="Script" path="res://scripts/ui/torch.gd" id="1_cbtlg"]
+[ext_resource type="AudioStream" uid="uid://b1k513esv03xq" path="res://audio/sfx/torch_sfx.wav" id="3_pjfwk"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0fvh2"]
+atlas = ExtResource("1_bdi2k")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_102t1"]
+atlas = ExtResource("1_bdi2k")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m5pg4"]
+atlas = ExtResource("1_bdi2k")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ml5s"]
+atlas = ExtResource("1_bdi2k")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1y8d0"]
+atlas = ExtResource("1_bdi2k")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0u7m0"]
+atlas = ExtResource("1_bdi2k")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u26sq"]
+atlas = ExtResource("1_bdi2k")
+region = Rect2(128, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_irr1i"]
+atlas = ExtResource("1_bdi2k")
+region = Rect2(192, 64, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hoidh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0fvh2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_102t1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m5pg4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3ml5s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1y8d0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0u7m0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u26sq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_irr1i")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_05olq"]
+size = Vector2(15, 43)
+
+[node name="Torch" type="Area2D"]
+collision_mask = 2
+script = ExtResource("1_cbtlg")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_hoidh")
+animation = &"walk"
+autoplay = "walk"
+frame_progress = 0.958661
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-2.5, -0.5)
+shape = SubResource("RectangleShape2D_05olq")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_pjfwk")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -19,6 +19,7 @@ var footstep_frames: Array = [0, 2, 4, 6]
 func _ready() -> void:
 	GlobalSignals.connect(Consts.S_ATTACK_PLAYER, handle_damage)
 	GlobalSignals.connect(Consts.S_RESTORE_PLAYER_HEALTH, handle_health)
+	life_bar.value = PlayerConfig.life
 	animated_sprite.play(Consts.ANIMATION_IDLE)
 
 func _physics_process(delta: float) -> void:
@@ -101,8 +102,8 @@ func die():
 	AudioUtil.fade_out_audio(audio_player, reload_scene,-200, 1)
 
 func handle_health(health: float) -> void:
-	if life_bar.value + health > 100:
-		life_bar.value = 100
+	if life_bar.value + health > PlayerConfig.life:
+		life_bar.value = PlayerConfig.life
 		return
 	life_bar.value += health
 

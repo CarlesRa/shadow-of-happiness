@@ -1,5 +1,8 @@
 extends Node
 
+# Interface
+signal incrase_points(amount: int)
+
 # Player
 signal attack_player(damage: float)
 signal restore_player_health(health: float)

@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://cpnv6grkm5xc"]
+
+[ext_resource type="Texture2D" uid="uid://cmteuxk56sv1" path="res://assets/icons/7.png" id="1_c7jp1"]
+[ext_resource type="Script" path="res://scripts/ui/interface.gd" id="1_i2ujv"]
+[ext_resource type="FontFile" uid="uid://dleqlbke7wkm2" path="res://assets/fonts/c-64.ttf" id="2_24pyv"]
+
+[node name="Interface" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_i2ujv")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer"]
+position = Vector2(63.75, 66.75)
+scale = Vector2(0.21582, 0.21582)
+texture = ExtResource("1_c7jp1")
+
+[node name="Label" type="Label" parent="CanvasLayer/Sprite2D"]
+offset_left = 156.098
+offset_top = -68.6829
+offset_right = 213.098
+offset_bottom = 68.3171
+theme_override_fonts/font = ExtResource("2_24pyv")
+theme_override_font_sizes/font_size = 100
+text = "0"

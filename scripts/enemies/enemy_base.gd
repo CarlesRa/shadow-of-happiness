@@ -2,14 +2,15 @@ extends CharacterBody2D
 
 @export var player_detected = false
 @export var is_death = false
+@export var flaying_enemy: bool = false
 @export var direction = -1
 @export var attack_amount: float
+@export var points_amount: int
 @export var speed: float
 @export var sfx_walk: Resource
 @export var sfx_attack: Resource
 @export var sfx_attacked: Resource
 
-var flaying_enemy: bool = false
 var animation: AnimatedSprite2D
 var ray_cast_left: RayCast2D
 var ray_cast_right: RayCast2D
@@ -61,7 +62,8 @@ func _on_animation_looped() -> void:
 func take_damage(amount: float) -> void:
 	attacked()
 	life_bar.value -= amount
-	if life_bar.value <= 0 :
+	if life_bar.value <= 0 and not is_death :
+		speed = 0
 		is_death = true
 		die()
 
@@ -86,6 +88,7 @@ func attacked() -> void:
 func die() -> void:
 	direction = 0
 	animation.play(Consts.ANIMATION_DEATH)
+	GlobalSignals.incrase_points.emit(points_amount)
 
 func enable_audio() -> void:
 	audio_player.volume_db = 0

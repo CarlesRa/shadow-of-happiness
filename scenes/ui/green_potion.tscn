@@ -1,0 +1,92 @@
+[gd_scene load_steps=14 format=3 uid="uid://cyrcsl1atqgyd"]
+
+[ext_resource type="Script" path="res://scripts/ui/potions/green_potion.gd" id="1_h1rh0"]
+[ext_resource type="Texture2D" uid="uid://ba60tbdn07pam" path="res://assets/sprites/green_potion.png" id="1_mh1jp"]
+[ext_resource type="AudioStream" uid="uid://m8s75ovg7wfg" path="res://audio/sfx/potion_sfx.wav" id="3_ebai1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ycdpl"]
+atlas = ExtResource("1_mh1jp")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tny0l"]
+atlas = ExtResource("1_mh1jp")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gx88u"]
+atlas = ExtResource("1_mh1jp")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8wghy"]
+atlas = ExtResource("1_mh1jp")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_56qnw"]
+atlas = ExtResource("1_mh1jp")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aj73g"]
+atlas = ExtResource("1_mh1jp")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qkpuu"]
+atlas = ExtResource("1_mh1jp")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pf5mh"]
+atlas = ExtResource("1_mh1jp")
+region = Rect2(16, 32, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wdjl0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ycdpl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tny0l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gx88u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8wghy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_56qnw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aj73g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qkpuu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pf5mh")
+}],
+"loop": true,
+"name": &"run",
+"speed": 6.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_m065q"]
+radius = 7.0
+
+[node name="GreenPotion" type="Area2D"]
+script = ExtResource("1_h1rh0")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_wdjl0")
+animation = &"run"
+autoplay = "run"
+frame_progress = 0.309683
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_m065q")
+
+[node name="AudioPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_ebai1")
+bus = &"Potions"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="finished" from="AudioPlayer" to="." method="_on_audio_player_finished"]

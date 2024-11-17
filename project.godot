@@ -22,6 +22,7 @@ ScenesUtil="*res://scripts/utils/scenes_util.gd"
 AudioUtil="*res://scripts/utils/audio_util.gd"
 Consts="*res://scripts/global/consts.gd"
 PlayerConfig="*res://scripts/global/player_config.gd"
+Vars="*res://scripts/global/vars.gd"
 
 [display]
 

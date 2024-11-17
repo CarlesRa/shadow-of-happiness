@@ -15,6 +15,7 @@ const GROUP_ENEMIES = "enemies"
 # Signals
 const S_ATTACK_PLAYER = "attack_player"
 const S_RESTORE_PLAYER_HEALTH = "restore_player_health"
+const S_INCRASE_POINTS = "incrase_points"
 
 # Characters
 const PLAYER = "Player"

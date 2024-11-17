@@ -17,9 +17,10 @@ corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
 [node name="LifeBar" type="ProgressBar"]
-offset_left = -39.0
-offset_right = 56.0
-offset_bottom = 2.0
+offset_left = 52.0
+offset_top = 45.0
+offset_right = 147.0
+offset_bottom = 47.0
 theme_override_styles/background = SubResource("StyleBoxFlat_47jbv")
 theme_override_styles/fill = SubResource("StyleBoxFlat_vpams")
 value = 100.0

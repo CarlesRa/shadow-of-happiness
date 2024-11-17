@@ -182,10 +182,10 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8yvdp"]
-size = Vector2(25, 3)
+size = Vector2(28, 4)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_btqmq"]
-size = Vector2(28, 11)
+size = Vector2(33, 11)
 
 [node name="Slime" type="CharacterBody2D"]
 collision_layer = 8
@@ -202,7 +202,7 @@ sprite_frames = SubResource("SpriteFrames_gmxy7")
 animation = &"attack"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.5, 9.5)
+position = Vector2(0, 9)
 shape = SubResource("RectangleShape2D_8yvdp")
 
 [node name="PlayerDetectArea" type="Area2D" parent="."]
@@ -210,15 +210,15 @@ collision_layer = 8
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetectArea"]
-position = Vector2(0, 5.5)
+position = Vector2(0.5, 5.5)
 shape = SubResource("RectangleShape2D_btqmq")
 debug_color = Color(0.672392, 0.372006, 0.877682, 0.42)
 
 [node name="RayCastLeft" type="RayCast2D" parent="."]
-target_position = Vector2(-14, 0)
+target_position = Vector2(-16, 0)
 
 [node name="RayCastRight" type="RayCast2D" parent="."]
-target_position = Vector2(14, 0)
+target_position = Vector2(17, 0)
 
 [node name="AudioPlayer" type="AudioStreamPlayer2D" parent="."]
 volume_db = -80.0
