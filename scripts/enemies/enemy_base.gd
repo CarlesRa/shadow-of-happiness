@@ -1,7 +1,5 @@
 extends CharacterBody2D
 
-@export var player_detected = false
-@export var is_death = false
 @export var flaying_enemy: bool = false
 @export var direction = -1
 @export var attack_amount: float
@@ -11,6 +9,10 @@ extends CharacterBody2D
 @export var sfx_attack: Resource
 @export var sfx_attacked: Resource
 
+var player_detected = false
+var is_death = false
+var is_attacking = false
+var direction_aux: int
 var animation: AnimatedSprite2D
 var ray_cast_left: RayCast2D
 var ray_cast_right: RayCast2D
@@ -36,6 +38,7 @@ func handle_direction() -> void:
 		direction = 1
 	if ray_cast_right.is_colliding():
 		direction = -1
+	if is_attacking: return
 	velocity.x = direction * speed
 	animation.flip_h = direction > 0
 
@@ -50,8 +53,6 @@ func _on_player_detect_area_body_exited(body: Node2D) -> void:
 		walk()
 
 func _on_animation_looped() -> void:
-	if animation.animation == Consts.ANIMATION_ATTACK:
-		GlobalSignals.attack_player.emit(attack_amount)
 	if animation.animation == Consts.ANIMATION_HURT and player_detected:
 		attack()
 	if animation.animation == Consts.ANIMATION_HURT and not player_detected:
@@ -59,25 +60,32 @@ func _on_animation_looped() -> void:
 	if animation.animation == Consts.ANIMATION_DEATH:
 		queue_free()
 
+func _on_animation_finished() -> void:
+	is_attacking = false
+	if player_detected: attack()
+	else: walk()
+
 func take_damage(amount: float) -> void:
 	attacked()
 	life_bar.value -= amount
-	if life_bar.value <= 0 and not is_death :
+	if life_bar.value <= 0 and not is_death:
 		speed = 0
 		is_death = true
 		die()
 
 func walk() -> void:
-	if is_death: return
+	if is_death or is_attacking: return
 	animation.play(Consts.ANIMATION_WALK)
 	AudioUtil.load_sfx(audio_player, sfx_walk)
 	audio_player.play()
 
 func attack() -> void:
 	if is_death: return
+	is_attacking = true
 	animation.play(Consts.ANIMATION_ATTACK)
 	AudioUtil.load_sfx(audio_player, sfx_attack)
 	audio_player.play()
+	GlobalSignals.attack_player.emit(attack_amount)
 
 func attacked() -> void:
 	if is_death: return
@@ -86,7 +94,6 @@ func attacked() -> void:
 	audio_player.play()
 
 func die() -> void:
-	direction = 0
 	animation.play(Consts.ANIMATION_DEATH)
 	GlobalSignals.incrase_points.emit(points_amount)
 
