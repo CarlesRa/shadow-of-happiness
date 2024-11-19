@@ -2,7 +2,6 @@ extends CharacterBody2D
 
 const SPEED = 110.0
 const JUMP_VELOCITY = -300.0
-const START_POSITION = Vector2()
 const SIGNAL_ATTACK_PLAYER = "attack_player"
 var is_attacking: bool = false
 var sfx_sword: AudioStream = load("res://audio/sfx/sword_sfx.wav")

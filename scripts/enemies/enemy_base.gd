@@ -11,7 +11,6 @@ extends CharacterBody2D
 
 var player_detected = false
 var is_death = false
-var is_attacking = false
 var direction_aux: int
 var animation: AnimatedSprite2D
 var ray_cast_left: RayCast2D
@@ -38,7 +37,6 @@ func handle_direction() -> void:
 		direction = 1
 	if ray_cast_right.is_colliding():
 		direction = -1
-	if is_attacking: return
 	velocity.x = direction * speed
 	animation.flip_h = direction > 0
 
@@ -53,15 +51,18 @@ func _on_player_detect_area_body_exited(body: Node2D) -> void:
 		walk()
 
 func _on_animation_looped() -> void:
-	if animation.animation == Consts.ANIMATION_HURT and player_detected:
-		attack()
-	if animation.animation == Consts.ANIMATION_HURT and not player_detected:
-		walk()
 	if animation.animation == Consts.ANIMATION_DEATH:
 		queue_free()
 
 func _on_animation_finished() -> void:
-	is_attacking = false
+	if animation.animation == Consts.ANIMATION_HURT:
+		handle_animation_by_player_detected()
+	if animation.animation == Consts.ANIMATION_ATTACK:
+		handle_animation_by_player_detected()
+		if player_detected: 
+			GlobalSignals.attack_player.emit(attack_amount)
+
+func handle_animation_by_player_detected() -> void:
 	if player_detected: attack()
 	else: walk()
 
@@ -74,18 +75,19 @@ func take_damage(amount: float) -> void:
 		die()
 
 func walk() -> void:
-	if is_death or is_attacking: return
+	if is_death: return
+	if animation.flip_h: direction = 1
+	else: direction = -1
 	animation.play(Consts.ANIMATION_WALK)
 	AudioUtil.load_sfx(audio_player, sfx_walk)
 	audio_player.play()
 
 func attack() -> void:
 	if is_death: return
-	is_attacking = true
+	direction = 0
 	animation.play(Consts.ANIMATION_ATTACK)
 	AudioUtil.load_sfx(audio_player, sfx_attack)
-	audio_player.play()
-	GlobalSignals.attack_player.emit(attack_amount)
+	audio_player.play()	
 
 func attacked() -> void:
 	if is_death: return

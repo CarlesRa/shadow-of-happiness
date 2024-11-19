@@ -6,8 +6,4 @@ func _ready() -> void:
 	ray_cast_right = $RayCastRight
 	audio_player = $AudioPlayer
 	life_bar = $LifeBar
-	attack_amount = 18
-	speed = 60.0
-	sfx_attack = preload("res://audio/sfx/injured_sfx.wav")
-	sfx_attacked = preload("res://audio/sfx/wizard_attacked_sfx.wav")
 	super()

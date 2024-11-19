@@ -1,7 +1,9 @@
-[gd_scene load_steps=31 format=3 uid="uid://s3xrwlqggblk"]
+[gd_scene load_steps=33 format=3 uid="uid://s3xrwlqggblk"]
 
 [ext_resource type="Script" path="res://scripts/enemies/wizard.gd" id="1_mxugb"]
 [ext_resource type="Texture2D" uid="uid://wepfk71vfl7k" path="res://assets/characters/wizard/wizard_fly_forward-removebg-preview.png" id="2_8n7sk"]
+[ext_resource type="AudioStream" uid="uid://d2nays4wpx35i" path="res://audio/sfx/injured_sfx.wav" id="2_jc8kw"]
+[ext_resource type="AudioStream" uid="uid://txqqh2up1k1q" path="res://audio/sfx/wizard_attacked_sfx.wav" id="3_adquq"]
 [ext_resource type="Texture2D" uid="uid://brk00n5ffhyub" path="res://assets/characters/wizard/wizard_death-removebg-preview.png" id="3_qoyl6"]
 [ext_resource type="PackedScene" uid="uid://cwxi1d6lr4gbe" path="res://scenes/ui/life_bar.tscn" id="4_qgw7n"]
 
@@ -118,9 +120,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_23yby")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack",
-"speed": 15.0
+"speed": 12.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -170,9 +172,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_jfgwb")
 }],
-"loop": true,
+"loop": false,
 "name": &"hurt",
-"speed": 15.0
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -190,22 +192,25 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x4j2t"]
-size = Vector2(45, 21)
+size = Vector2(48, 21)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tr6cw"]
-size = Vector2(51, 45)
+size = Vector2(55, 45)
 
 [node name="Wizard" type="CharacterBody2D"]
-collision_layer = 0
-collision_mask = 0
+collision_layer = 8
+collision_mask = 3
 script = ExtResource("1_mxugb")
+attack_amount = 18.0
+speed = 60.0
+sfx_attack = ExtResource("2_jc8kw")
+sfx_attacked = ExtResource("3_adquq")
 
 [node name="WizardAnimation" type="AnimatedSprite2D" parent="."]
 position = Vector2(6, -7.25)
 scale = Vector2(0.65, 0.83125)
 sprite_frames = SubResource("SpriteFrames_8ttyn")
-animation = &"walk"
-flip_h = true
+animation = &"hurt"
 
 [node name="LifeBar" parent="." instance=ExtResource("4_qgw7n")]
 offset_left = -17.0
@@ -216,7 +221,7 @@ max_value = 150.0
 value = 150.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(6.5, 5.5)
+position = Vector2(6, 3)
 shape = SubResource("RectangleShape2D_x4j2t")
 
 [node name="RayCastLeft" type="RayCast2D" parent="."]
@@ -233,10 +238,11 @@ collision_layer = 8
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetectArea"]
-position = Vector2(7.5, -6.5)
+position = Vector2(6.5, -6.5)
 shape = SubResource("RectangleShape2D_tr6cw")
 debug_color = Color(0.836483, 0.339239, 0.492297, 0.42)
 
+[connection signal="animation_finished" from="WizardAnimation" to="." method="_on_animation_finished"]
 [connection signal="animation_looped" from="WizardAnimation" to="." method="_on_animation_looped"]
 [connection signal="body_entered" from="PlayerDetectArea" to="." method="_on_player_detect_area_body_entered"]
 [connection signal="body_exited" from="PlayerDetectArea" to="." method="_on_player_detect_area_body_exited"]
