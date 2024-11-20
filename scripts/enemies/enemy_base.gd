@@ -66,7 +66,9 @@ func handle_animation_by_player_detected() -> void:
 	if player_detected: attack()
 	else: walk()
 
-func take_damage(amount: float) -> void:
+func take_damage(amount: float, body: Node2D) -> void:
+	if body.animated_sprite.flip_h: direction = 1
+	else: direction = -1	
 	life_bar.value -= amount
 	attacked()
 	if life_bar.value <= 0 and not is_death:

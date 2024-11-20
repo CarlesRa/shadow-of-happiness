@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=4 uid="uid://bvdg403xaw1oj"]
+[gd_scene load_steps=39 format=4 uid="uid://bvdg403xaw1oj"]
 
 [ext_resource type="AudioStream" uid="uid://bi7yl7uq6mcg" path="res://audio/music/level01-music.mp3" id="1_8y6bm"]
 [ext_resource type="Script" path="res://scripts/levels/level01/level_01_world.gd" id="1_xasis"]
@@ -127,7 +127,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 1.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(1165, 505), Vector2(1304, 505)]
+"values": [Vector2(1409, 551), Vector2(1549, 551)]
 }
 
 [sub_resource type="Animation" id="Animation_svpqn"]
@@ -151,6 +151,44 @@ tracks/0/keys = {
 _data = {
 "RESET": SubResource("Animation_ymh0y"),
 "move": SubResource("Animation_svpqn")
+}
+
+[sub_resource type="Animation" id="Animation_jo3dh"]
+resource_name = "move"
+length = 2.0
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(2466, 463), Vector2(2466, 557)]
+}
+
+[sub_resource type="Animation" id="Animation_p7vvh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2466, 463)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nixtt"]
+_data = {
+"RESET": SubResource("Animation_p7vvh"),
+"move": SubResource("Animation_jo3dh")
 }
 
 [sub_resource type="Animation" id="Animation_uxnup"]
@@ -378,25 +416,25 @@ position = Vector2(823, 562)
 collision_mask = 2
 
 [node name="GreenPotion2" parent="Potions" instance=ExtResource("9_en78e")]
-position = Vector2(2387, 425)
+position = Vector2(2287, 359)
 collision_mask = 2
 
 [node name="GreenPotion3" parent="Potions" instance=ExtResource("9_en78e")]
-position = Vector2(2104, 519)
+position = Vector2(2144, 352)
 collision_mask = 2
 
 [node name="GreenPotion4" parent="Potions" instance=ExtResource("9_en78e")]
-position = Vector2(2481, 464)
+position = Vector2(2467, 430)
 collision_mask = 2
 
 [node name="GreenPotion5" parent="Potions" instance=ExtResource("9_en78e")]
-position = Vector2(2533, 426)
+position = Vector2(2396, 431)
 collision_mask = 2
 
 [node name="Platforms" type="Node" parent="."]
 
 [node name="PlatformCave01" parent="Platforms" instance=ExtResource("9_55hso")]
-position = Vector2(1165, 505)
+position = Vector2(1409, 551)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Platforms/PlatformCave01"]
 libraries = {
@@ -405,10 +443,10 @@ libraries = {
 autoplay = "RESET"
 
 [node name="PlatformCave02" parent="Platforms" instance=ExtResource("9_55hso")]
-position = Vector2(1911, 479)
+position = Vector2(2043, 506)
 
 [node name="PlatformCave03" parent="Platforms" instance=ExtResource("9_55hso")]
-position = Vector2(1972, 458)
+position = Vector2(1970, 477)
 
 [node name="PlatformCave04" parent="Platforms" instance=ExtResource("9_55hso")]
 position = Vector2(2032, 435)
@@ -418,6 +456,21 @@ position = Vector2(2235, 435)
 
 [node name="PlatformCave07" parent="Platforms" instance=ExtResource("9_55hso")]
 position = Vector2(2286, 395)
+
+[node name="PlatformCave10" parent="Platforms" instance=ExtResource("9_55hso")]
+position = Vector2(2325, 495)
+
+[node name="PlatformCave18" parent="Platforms" instance=ExtResource("9_55hso")]
+position = Vector2(2397, 463)
+
+[node name="PlatformCave19" parent="Platforms" instance=ExtResource("9_55hso")]
+position = Vector2(2466, 463)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Platforms/PlatformCave19"]
+libraries = {
+"": SubResource("AnimationLibrary_nixtt")
+}
+autoplay = "move"
 
 [node name="PlatformCave08" parent="Platforms" instance=ExtResource("9_55hso")]
 position = Vector2(2142, 390)
@@ -495,16 +548,8 @@ collision_mask = 3
 position = Vector2(1147, 597)
 collision_mask = 3
 
-[node name="Slime4" parent="Enemies/Slimes" instance=ExtResource("5_tvepu")]
-position = Vector2(1356, 549)
-collision_mask = 3
-
 [node name="Slime5" parent="Enemies/Slimes" instance=ExtResource("5_tvepu")]
 position = Vector2(1604, 548)
-collision_mask = 3
-
-[node name="Slime6" parent="Enemies/Slimes" instance=ExtResource("5_tvepu")]
-position = Vector2(1820, 548)
 collision_mask = 3
 
 [node name="Slime7" parent="Enemies/Slimes" instance=ExtResource("5_tvepu")]
@@ -512,7 +557,7 @@ position = Vector2(1943, 549)
 collision_mask = 3
 
 [node name="Slime8" parent="Enemies/Slimes" instance=ExtResource("5_tvepu")]
-position = Vector2(2311, 478)
+position = Vector2(2325, 478)
 collision_mask = 3
 direction = 0
 
