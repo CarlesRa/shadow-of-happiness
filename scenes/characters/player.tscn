@@ -242,7 +242,7 @@ unique_name_in_owner = true
 position = Vector2(22.5, 20)
 shape = SubResource("RectangleShape2D_yhagk")
 disabled = true
-debug_color = Color(0.753812, 0.43404, 0.393293, 0.42)
+debug_color = Color(0.978721, 0, 0.393907, 0.42)
 
 [node name="AttackAreaLeft" type="Area2D" parent="."]
 position = Vector2(-48, 0)
@@ -252,7 +252,7 @@ collision_mask = 8
 position = Vector2(25.75, 20)
 shape = SubResource("RectangleShape2D_yhagk")
 disabled = true
-debug_color = Color(0.876382, 0.222442, 0.653944, 0.42)
+debug_color = Color(0.983088, 0, 0.356268, 0.42)
 
 [node name="PlayerCamera" type="Camera2D" parent="."]
 zoom = Vector2(3, 3)
@@ -273,6 +273,6 @@ debug_color = Color(0.630473, 0.497089, 0.50358, 0.42)
 [connection signal="animation_looped" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_looped"]
 [connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]
 [connection signal="body_entered" from="AttackAreaRight" to="." method="_on_attack_area_right_body_entered"]
-[connection signal="body_entered" from="AttackAreaLeft" to="." method="_on_attack_area_right_body_entered"]
+[connection signal="body_entered" from="AttackAreaLeft" to="." method="_on_attack_area_left_body_entered"]
 [connection signal="body_entered" from="PlayerCamera/CameraArea" to="." method="_on_camera_area_body_entered"]
 [connection signal="body_exited" from="PlayerCamera/CameraArea" to="." method="_on_camera_area_body_exited"]

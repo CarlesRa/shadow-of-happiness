@@ -101,16 +101,22 @@ func die():
 	AudioUtil.fade_out_audio(audio_player, reload_scene,-200, 1)
 
 func handle_health(health: float) -> void:
-	if life_bar.value + health > PlayerConfig.life:
+	life_bar.value += health
+	if life_bar.value > PlayerConfig.life:
 		life_bar.value = PlayerConfig.life
 		return
-	life_bar.value += health
 
 func reload_scene() -> void:
 	Engine.time_scale = 1
 	get_tree().reload_current_scene()
 
 func _on_attack_area_right_body_entered(body: Node2D) -> void:
+	apply_attack_area(body)
+		
+func _on_attack_area_left_body_entered(body: Node2D) -> void:
+	apply_attack_area(body)
+
+func apply_attack_area(body: Node2D) -> void:
 	if body.is_in_group(Consts.GROUP_ENEMIES) and is_attacking:
 		body.take_damage(PlayerConfig.force)
 

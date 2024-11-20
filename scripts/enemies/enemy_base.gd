@@ -67,8 +67,8 @@ func handle_animation_by_player_detected() -> void:
 	else: walk()
 
 func take_damage(amount: float) -> void:
-	attacked()
 	life_bar.value -= amount
+	attacked()
 	if life_bar.value <= 0 and not is_death:
 		speed = 0
 		is_death = true
@@ -90,7 +90,7 @@ func attack() -> void:
 	audio_player.play()	
 
 func attacked() -> void:
-	if is_death: return
+	if is_death: return	
 	animation.play(Consts.ANIMATION_HURT)
 	AudioUtil.load_sfx(audio_player, sfx_attacked)
 	audio_player.play()
