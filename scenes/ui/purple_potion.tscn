@@ -1,0 +1,92 @@
+[gd_scene load_steps=14 format=3 uid="uid://cl8mu6tguli5f"]
+
+[ext_resource type="Script" path="res://scripts/ui/potions/purple_potion.gd" id="1_0shk2"]
+[ext_resource type="Texture2D" uid="uid://b80pnpv3fub80" path="res://assets/sprites/purple_potion.png" id="2_a8ulh"]
+[ext_resource type="AudioStream" uid="uid://m8s75ovg7wfg" path="res://audio/sfx/potion_sfx.wav" id="3_ydp7d"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5el8w"]
+atlas = ExtResource("2_a8ulh")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_inxfj"]
+atlas = ExtResource("2_a8ulh")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qj0xi"]
+atlas = ExtResource("2_a8ulh")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5lcqp"]
+atlas = ExtResource("2_a8ulh")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6kr28"]
+atlas = ExtResource("2_a8ulh")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_raewd"]
+atlas = ExtResource("2_a8ulh")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5hojh"]
+atlas = ExtResource("2_a8ulh")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v56nj"]
+atlas = ExtResource("2_a8ulh")
+region = Rect2(16, 32, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wdjl0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5el8w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_inxfj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qj0xi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5lcqp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6kr28")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_raewd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5hojh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v56nj")
+}],
+"loop": true,
+"name": &"run",
+"speed": 6.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_m065q"]
+radius = 7.0
+
+[node name="PurplePotion" type="Area2D"]
+script = ExtResource("1_0shk2")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_wdjl0")
+animation = &"run"
+autoplay = "run"
+frame_progress = 0.309683
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_m065q")
+
+[node name="AudioPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_ydp7d")
+bus = &"Potions"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="finished" from="AudioPlayer" to="." method="_on_audio_player_finished"]

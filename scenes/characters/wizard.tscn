@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://s3xrwlqggblk"]
+[gd_scene load_steps=31 format=3 uid="uid://s3xrwlqggblk"]
 
 [ext_resource type="Script" path="res://scripts/enemies/wizard.gd" id="1_mxugb"]
 [ext_resource type="Texture2D" uid="uid://wepfk71vfl7k" path="res://assets/characters/wizard/wizard_fly_forward-removebg-preview.png" id="2_8n7sk"]
@@ -62,14 +62,6 @@ region = Rect2(480, 0, 80, 80)
 [sub_resource type="AtlasTexture" id="AtlasTexture_5uhka"]
 atlas = ExtResource("3_qoyl6")
 region = Rect2(560, 0, 80, 80)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_aioxk"]
-atlas = ExtResource("3_qoyl6")
-region = Rect2(640, 0, 80, 80)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_6h6ty"]
-atlas = ExtResource("3_qoyl6")
-region = Rect2(720, 0, 80, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_v7vf3"]
 atlas = ExtResource("3_qoyl6")
@@ -148,12 +140,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_5uhka")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_aioxk")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_6h6ty")
 }],
 "loop": true,
 "name": &"death",
@@ -174,7 +160,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"hurt",
-"speed": 8.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -210,7 +196,7 @@ sfx_attacked = ExtResource("3_adquq")
 position = Vector2(6, -7.25)
 scale = Vector2(0.65, 0.83125)
 sprite_frames = SubResource("SpriteFrames_8ttyn")
-animation = &"hurt"
+animation = &"death"
 
 [node name="LifeBar" parent="." instance=ExtResource("4_qgw7n")]
 offset_left = -17.0
@@ -226,9 +212,11 @@ shape = SubResource("RectangleShape2D_x4j2t")
 
 [node name="RayCastLeft" type="RayCast2D" parent="."]
 target_position = Vector2(-49, 13)
+collision_mask = 9
 
 [node name="RayCastRight" type="RayCast2D" parent="."]
 target_position = Vector2(45, 12)
+collision_mask = 9
 
 [node name="AudioPlayer" type="AudioStreamPlayer2D" parent="."]
 bus = &"Wizard"
@@ -241,6 +229,8 @@ collision_mask = 2
 position = Vector2(6.5, -6.5)
 shape = SubResource("RectangleShape2D_tr6cw")
 debug_color = Color(0.836483, 0.339239, 0.492297, 0.42)
+
+[node name="Timer" type="Timer" parent="."]
 
 [connection signal="animation_finished" from="WizardAnimation" to="." method="_on_animation_finished"]
 [connection signal="animation_looped" from="WizardAnimation" to="." method="_on_animation_looped"]

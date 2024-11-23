@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 @export var flaying_enemy: bool = false
 @export var direction = -1
+@export var timer_duration: float = 0.25
 @export var attack_amount: float
 @export var points_amount: int
 @export var speed: float
@@ -17,6 +18,7 @@ var ray_cast_left: RayCast2D
 var ray_cast_right: RayCast2D
 var audio_player: AudioStreamPlayer2D
 var life_bar: ProgressBar
+var timer: Timer
 
 func _ready() -> void:
 	add_to_group(Consts.GROUP_ENEMIES)
@@ -67,14 +69,18 @@ func handle_animation_by_player_detected() -> void:
 	else: walk()
 
 func take_damage(amount: float, body: Node2D) -> void:
-	if body.animated_sprite.flip_h: direction = 1
-	else: direction = -1	
+	var body_flip_h = body.animated_sprite.flip_h
 	life_bar.value -= amount
 	attacked()
 	if life_bar.value <= 0 and not is_death:
 		speed = 0
 		is_death = true
 		die()
+	timer.one_shot = true
+	timer.start()
+	await timer.timeout
+	if body_flip_h: direction = 1
+	else: direction = -1
 
 func walk() -> void:
 	if is_death: return

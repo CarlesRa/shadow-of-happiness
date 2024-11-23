@@ -6,4 +6,5 @@ func _ready() -> void:
 	ray_cast_right = $RayCastRight
 	audio_player = $AudioPlayer
 	life_bar = $LifeBar
+	timer = $Timer
 	super()
