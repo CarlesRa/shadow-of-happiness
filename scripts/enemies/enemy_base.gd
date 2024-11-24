@@ -108,7 +108,9 @@ func die() -> void:
 	GlobalSignals.incrase_points.emit(points_amount)
 
 func enable_audio() -> void:
-	audio_player.volume_db = 0
+	#audio_player.volume_db = 0
+	pass
 
 func disable_audio() -> void:
-	audio_player.volume_db = -80
+	#audio_player.volume_db = -80
+	pass

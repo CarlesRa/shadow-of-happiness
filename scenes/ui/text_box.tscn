@@ -93,11 +93,17 @@ theme_override_constants/margin_bottom = 40
 [node name="TextboxValue" type="RichTextLabel" parent="TextboxPanel/TextboxMargin"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_constants/line_separation = 20
 theme_override_fonts/normal_font = ExtResource("1_6cndd")
 theme_override_fonts/mono_font = ExtResource("1_6cndd")
 theme_override_fonts/italics_font = ExtResource("1_6cndd")
 theme_override_fonts/bold_italics_font = ExtResource("1_6cndd")
 theme_override_fonts/bold_font = ExtResource("1_6cndd")
+theme_override_font_sizes/bold_italics_font_size = 14
+theme_override_font_sizes/italics_font_size = 14
+theme_override_font_sizes/mono_font_size = 14
+theme_override_font_sizes/normal_font_size = 14
+theme_override_font_sizes/bold_font_size = 14
 text = "Default text value"
 
 [node name="TextboxTimer" type="Timer" parent="TextboxPanel/TextboxMargin/TextboxValue"]

@@ -8,6 +8,7 @@ const ANIMATION_RUN = "run"
 const ANIMATION_JUMP = "jump"
 const ANIMATION_HURT = "hurt"
 const ANIMATION_DEATH = "death"
+const ANIMATION_FADE_OUT = "fade_out"
 
 # Groups
 const GROUP_ENEMIES = "enemies"
@@ -19,3 +20,9 @@ const S_INCRASE_POINTS = "incrase_points"
 
 # Characters
 const PLAYER = "Player"
+
+# UI
+const LEVEL_01_TOTAL_POINTS = 100
+const LEVEL_02_TOTAL_POINTS = 150
+const LEVEL_03_TOTAL_POINTS = 200
+const LEVEL_04_TOTAL_POINTS = 300

@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://dujb20cc8u62r"]
+
+[ext_resource type="Script" path="res://scripts/levels/level01/level_01_intro.gd" id="1_ja5wo"]
+[ext_resource type="Texture2D" uid="uid://ca2ktkftrb3ku" path="res://assets/backgrounds/background1.png" id="2_oqfoq"]
+[ext_resource type="PackedScene" uid="uid://8bjhmey88tm4" path="res://scenes/ui/text_box.tscn" id="3_ch5lu"]
+[ext_resource type="AudioStream" uid="uid://bi7yl7uq6mcg" path="res://audio/music/level01-music.mp3" id="4_tv8a2"]
+
+[node name="Level_01_intro" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ja5wo")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_oqfoq")
+
+[node name="Textbox" parent="TextureRect" instance=ExtResource("3_ch5lu")]
+
+[node name="AudioPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_tv8a2")
+autoplay = true
+
+[connection signal="close_btn_pressed" from="TextureRect/Textbox" to="." method="_on_textbox_close_btn_pressed"]

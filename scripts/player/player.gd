@@ -119,9 +119,3 @@ func _on_attack_area_left_body_entered(body: Node2D) -> void:
 func apply_attack_area(body: Node2D) -> void:
 	if body.is_in_group(Consts.GROUP_ENEMIES) and is_attacking:
 		body.take_damage(PlayerConfig.force, self)
-
-func _on_camera_area_body_entered(body: Node2D) -> void:
-	body.enable_audio()
-
-func _on_camera_area_body_exited(body: Node2D) -> void:
-	body.disable_audio()
