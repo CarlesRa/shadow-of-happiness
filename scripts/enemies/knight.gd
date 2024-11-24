@@ -4,17 +4,20 @@ extends CharacterBody2D
 @export var attack_amount = 20
 @export var speed: float = 60.0
 
-var start_position: Vector2
-var target: Node2D = null
 var is_attacking: bool = false
 var is_player_in_attack_area = false
 var is_death = false
+var sfx_sword: AudioStream = load("res://audio/sfx/sword_sfx.wav")
+var sfx_run: AudioStream = load("res://audio/sfx/running_sfx.wav")
+var start_position: Vector2
+var target: Node2D = null
 
 @onready var knight: CharacterBody2D = $"."
 @onready var animation: AnimatedSprite2D = $Animation
 @onready var attack_player: Area2D = $AttackPlayer
 @onready var timer: Timer = $Timer
 @onready var life_bar: ProgressBar = $LifeBar
+@onready var player: AudioStreamPlayer2D = $Player
 
 func _ready() -> void:
 	add_to_group(Consts.GROUP_ENEMIES)
@@ -67,7 +70,7 @@ func _on_detect_player_body_exited(body: Node2D) -> void:
 func _on_attack_player_body_entered(body: Node2D) -> void:
 	if is_death: return
 	if body.name == Consts.PLAYER:
-		is_player_in_attack_area = true		
+		is_player_in_attack_area = true
 		attack()
 
 func _on_attack_player_body_exited(body: Node2D) -> void:
@@ -83,10 +86,14 @@ func idle() -> void:
 func walk(body: Node2D) -> void:
 	is_attacking = false
 	animation.play(Consts.ANIMATION_WALK)
+	AudioUtil.load_sfx(player, sfx_run)
+	player.play
 
 func attack() -> void:
 	is_attacking = true
-	animation.play(Consts.ANIMATION_ATTACK)    
+	animation.play(Consts.ANIMATION_ATTACK)
+	AudioUtil.load_sfx(player, sfx_sword)
+	player.play  
 	if is_player_in_attack_area:
 		GlobalSignals.attack_player.emit(attack_amount)
 
@@ -102,8 +109,7 @@ func _on_animation_animation_finished() -> void:
 		else:
 			walk(target)
 
-func take_damage(amount: float, body: Node2D) -> void:
-	print("Enemy take damage")
+func take_damage(amount: float, body: Node2D) -> void:	
 	life_bar.value -= amount
 	if life_bar.value <= 0:
 		die()

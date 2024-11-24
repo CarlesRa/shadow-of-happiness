@@ -327,6 +327,8 @@ offset_bottom = 0.0
 max_value = 200.0
 value = 200.0
 
+[node name="Player" type="AudioStreamPlayer2D" parent="."]
+
 [connection signal="animation_finished" from="Animation" to="." method="_on_animation_animation_finished"]
 [connection signal="body_entered" from="DetectPlayer" to="." method="_on_detect_player_body_entered"]
 [connection signal="body_exited" from="DetectPlayer" to="." method="_on_detect_player_body_exited"]

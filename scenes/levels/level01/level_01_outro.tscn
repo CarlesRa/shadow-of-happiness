@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://8bjhmey88tm4" path="res://scenes/ui/text_box.tscn" id="3_ch5lu"]
 [ext_resource type="AudioStream" uid="uid://bi7yl7uq6mcg" path="res://audio/music/level01-music.mp3" id="4_tv8a2"]
 
-[node name="Level_01_intro" type="Control"]
+[node name="Level_01_outro" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 @export var flaying_enemy: bool = false
 @export var direction = -1
-@export var timer_duration: float = 0.25
+@export var timer_duration: float = 0.1
 @export var attack_amount: float
 @export var points_amount: int
 @export var speed: float
@@ -106,11 +106,3 @@ func attacked() -> void:
 func die() -> void:
 	animation.play(Consts.ANIMATION_DEATH)
 	GlobalSignals.incrase_points.emit(points_amount)
-
-func enable_audio() -> void:
-	#audio_player.volume_db = 0
-	pass
-
-func disable_audio() -> void:
-	#audio_player.volume_db = -80
-	pass

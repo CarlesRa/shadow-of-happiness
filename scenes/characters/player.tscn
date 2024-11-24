@@ -230,6 +230,7 @@ max_value = 200.0
 value = 200.0
 
 [node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
 
 [node name="AttackAreaRight" type="Area2D" parent="."]
 collision_mask = 8

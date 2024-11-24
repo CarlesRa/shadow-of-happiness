@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=4 uid="uid://bvdg403xaw1oj"]
+[gd_scene load_steps=56 format=4 uid="uid://bvdg403xaw1oj"]
 
 [ext_resource type="AudioStream" uid="uid://bi7yl7uq6mcg" path="res://audio/music/level01-music.mp3" id="1_8y6bm"]
 [ext_resource type="Script" path="res://scripts/levels/level01/level_01_world.gd" id="1_xasis"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://brojy7wqir2ow" path="res://scenes/ui/yellow_potion.tscn" id="14_utjmr"]
 [ext_resource type="PackedScene" uid="uid://da53oj0rua7me" path="res://scenes/ui/final_rock.tscn" id="15_okcj3"]
 [ext_resource type="PackedScene" uid="uid://dvdgcae04haau" path="res://scenes/characters/knight.tscn" id="16_sarhn"]
+[ext_resource type="PackedScene" uid="uid://c5s80tr3b3lwu" path="res://scenes/ui/orbe_01.tscn" id="17_4ka7m"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_j2lh2"]
 texture = ExtResource("2_p8rim")
@@ -544,6 +545,7 @@ script = ExtResource("1_xasis")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("1_8y6bm")
+autoplay = true
 bus = &"Music"
 
 [node name="World" type="Node" parent="."]
@@ -551,7 +553,7 @@ bus = &"Music"
 [node name="Background" type="TileMapLayer" parent="World"]
 z_index = -2
 position = Vector2(1068, 671)
-tile_map_data = PackedByteArray("AADN//X/AgAAAAAAAADt//X/AgAAAAAAAAANAPX/AgAAAAAAAAAtAPX/AgAAAAAAAABNAPX/AgAAAAAAAABtAPX/AgAAAAAAAADN/9X/AgAAAAAAAADt/9X/AgAAAAAAAAANANX/AgAAAAAAAAAtANX/AgAAAAAAAABNANb/AgAAAAAAAABtANb/AgAAAAAAAACNAPX/AgAAAAAAAACNANb/AgAAAAAAAACt//X/AgAAAAAAAACt/9X/AgAAAAAAAACtAPX/AgAAAAAAAADNAPX/AgAAAAAAAACtANb/AgAAAAAAAADNANb/AgAAAAAAAADtANb/AgAAAAAAAADtAPX/AgAAAAAAAAANAfX/AgAAAAAAAAANAdb/AgAAAAAAAAAqAdb/AgAAAAAAAAAqAfX/AgAAAAAAAABKAdb/AgAAAAAAAABKAfX/AgAAAAAAAABqAdb/AgAAAAAAAABqAfX/AgAAAAAAAABqAbb/AgAAAAAAAABKAbb/AgAAAAAAAAAqAbb/AgAAAAAAAAAKAbb/AgAAAAAAAACKAbb/AgAAAAAAAACKAdb/AgAAAAAAAACKAfX/AgAAAAAAAACqAfX/AgAAAAAAAACqAdX/AgAAAAAAAACqAbb/AgAAAAAAAAA=")
+tile_map_data = PackedByteArray("AADN//X/AgAAAAAAAADt//X/AgAAAAAAAAANAPX/AgAAAAAAAAAtAPX/AgAAAAAAAABNAPX/AgAAAAAAAABtAPX/AgAAAAAAAADN/9X/AgAAAAAAAADt/9X/AgAAAAAAAAANANX/AgAAAAAAAAAtANX/AgAAAAAAAABNANb/AgAAAAAAAABtANb/AgAAAAAAAACNAPX/AgAAAAAAAACNANb/AgAAAAAAAACt//X/AgAAAAAAAACt/9X/AgAAAAAAAACtAPX/AgAAAAAAAADNAPX/AgAAAAAAAACtANb/AgAAAAAAAADNANb/AgAAAAAAAADtANb/AgAAAAAAAADtAPX/AgAAAAAAAAANAfX/AgAAAAAAAAANAdb/AgAAAAAAAAAqAdb/AgAAAAAAAAAqAfX/AgAAAAAAAABKAdb/AgAAAAAAAABKAfX/AgAAAAAAAABqAdb/AgAAAAAAAABqAfX/AgAAAAAAAABqAbb/AgAAAAAAAABKAbb/AgAAAAAAAAAqAbb/AgAAAAAAAAAKAbb/AgAAAAAAAACKAbb/AgAAAAAAAACKAdb/AgAAAAAAAACKAfX/AgAAAAAAAACqAfX/AgAAAAAAAACqAdX/AgAAAAAAAACqAbb/AgAAAAAAAADKAfX/AgAAAAAAAADKAdX/AgAAAAAAAADKAbX/AgAAAAAAAADqAbf/AgAAAAAAAADqAdf/AgAAAAAAAADqAfX/AgAAAAAAAAAJAvX/AgAAAAAAAAAKAtX/AgAAAAAAAAAKArX/AgAAAAAAAAA=")
 tile_set = SubResource("TileSet_17sir")
 
 [node name="Mid" type="TileMapLayer" parent="World"]
@@ -780,8 +782,7 @@ collision_mask = 3
 [node name="Slime8" parent="Enemies/Slimes" instance=ExtResource("5_tvepu")]
 position = Vector2(1805, 548)
 collision_mask = 3
-direction = 0
-speed = 0.0
+direction = 1
 
 [node name="Slime9" parent="Enemies/Slimes" instance=ExtResource("5_tvepu")]
 position = Vector2(5194, 468)
@@ -846,3 +847,6 @@ points_to_end_level = 10
 
 [node name="Knight" parent="." instance=ExtResource("16_sarhn")]
 position = Vector2(7622, -5)
+
+[node name="Orbe01" parent="." instance=ExtResource("17_4ka7m")]
+position = Vector2(8006, 53)
