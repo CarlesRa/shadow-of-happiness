@@ -822,6 +822,10 @@ position = Vector2(2943, 539)
 [node name="Torch2" parent="CheckPoints" instance=ExtResource("12_dppbk")]
 position = Vector2(6124, 460)
 
+[node name="Torch3" parent="CheckPoints" instance=ExtResource("12_dppbk")]
+position = Vector2(7134, 59)
+is_last_torch = true
+
 [node name="Killzone" parent="." instance=ExtResource("5_iev21")]
 position = Vector2(1358, 729)
 
@@ -842,7 +846,7 @@ Press F to attack"
 metadata/_edit_use_anchors_ = true
 
 [node name="FinalRock" parent="." instance=ExtResource("15_okcj3")]
-position = Vector2(7144, 16)
+position = Vector2(7019, 18)
 points_to_end_level = 10
 
 [node name="Knight" parent="." instance=ExtResource("16_sarhn")]

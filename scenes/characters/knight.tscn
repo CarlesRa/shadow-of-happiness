@@ -282,9 +282,10 @@ collision_layer = 9
 script = ExtResource("1_1dxjw")
 
 [node name="Animation" type="AnimatedSprite2D" parent="."]
-scale = Vector2(1.78333, 2.075)
+position = Vector2(-3, 0)
+scale = Vector2(1.5, 2.1)
 sprite_frames = SubResource("SpriteFrames_0odqr")
-animation = &"idle"
+animation = &"attack"
 flip_h = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -317,12 +318,12 @@ shape = SubResource("RectangleShape2D_cqwml")
 debug_color = Color(0.230934, 0.581505, 0.717307, 0.42)
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 1.8
+wait_time = 1.5
 
 [node name="LifeBar" parent="." instance=ExtResource("6_r2n08")]
-offset_left = -62.0
+offset_left = -53.0
 offset_top = -2.0
-offset_right = 77.0
+offset_right = 68.0
 offset_bottom = 0.0
 max_value = 200.0
 value = 200.0

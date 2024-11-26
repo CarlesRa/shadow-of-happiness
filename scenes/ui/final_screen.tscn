@@ -1,0 +1,118 @@
+[gd_scene load_steps=8 format=3 uid="uid://bxypy5hs85g8n"]
+
+[ext_resource type="Texture2D" uid="uid://ca2ktkftrb3ku" path="res://assets/backgrounds/background1.png" id="1_gg2w4"]
+[ext_resource type="FontFile" uid="uid://bvrybk1n0ilqc" path="res://assets/fonts/HelpMe.ttf" id="2_dd0lq"]
+[ext_resource type="AudioStream" uid="uid://hddpkah54b1l" path="res://audio/music/title-music.mp3" id="3_0wiyn"]
+[ext_resource type="AudioStream" uid="uid://e5bivtx6lnuk" path="res://audio/sfx/Creepy_2s.wav" id="4_84icm"]
+
+[sub_resource type="Animation" id="Animation_cl24c"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:theme_override_colors/font_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.420629, 0, 0.0606273, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_hasfw"]
+resource_name = "animate_title"
+length = 5.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:theme_override_colors/font_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.5, 5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.420629, 0, 0.0606273, 1), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(2.53333),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"play_fx"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3gasg"]
+_data = {
+"RESET": SubResource("Animation_cl24c"),
+"animate_title": SubResource("Animation_hasfw")
+}
+
+[node name="FinalScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_gg2w4")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -638.0
+offset_right = 640.0
+offset_bottom = 719.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.420629, 0, 0.0606273, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_dd0lq")
+theme_override_font_sizes/font_size = 20
+text = "Thanks for playing
+Special thanks to GitHub
+and the amazing itch.io
+community for generously
+sharing free sprites, audio, and
+other resources that make indie
+game development possible. 
+To all creators and contributors:
+your work inspires and fuels creativity. 
+Thank you for making this trip happen!"
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Label"]
+libraries = {
+"": SubResource("AnimationLibrary_3gasg")
+}
+autoplay = "animate_title"
+
+[node name="BackMusic" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_0wiyn")
+autoplay = true
+
+[node name="TitleFx01" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("4_84icm")

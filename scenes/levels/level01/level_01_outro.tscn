@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/levels/level01/level_01_intro.gd" id="1_ja5wo"]
 [ext_resource type="Texture2D" uid="uid://ca2ktkftrb3ku" path="res://assets/backgrounds/background1.png" id="2_oqfoq"]
 [ext_resource type="PackedScene" uid="uid://8bjhmey88tm4" path="res://scenes/ui/text_box.tscn" id="3_ch5lu"]
-[ext_resource type="AudioStream" uid="uid://bi7yl7uq6mcg" path="res://audio/music/level01-music.mp3" id="4_tv8a2"]
+[ext_resource type="AudioStream" uid="uid://hddpkah54b1l" path="res://audio/music/title-music.mp3" id="4_0wrpr"]
 
 [node name="Level_01_outro" type="Control"]
 layout_mode = 3
@@ -26,7 +26,7 @@ texture = ExtResource("2_oqfoq")
 [node name="Textbox" parent="TextureRect" instance=ExtResource("3_ch5lu")]
 
 [node name="AudioPlayer" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("4_tv8a2")
+stream = ExtResource("4_0wrpr")
 autoplay = true
 
 [connection signal="close_btn_pressed" from="TextureRect/Textbox" to="." method="_on_textbox_close_btn_pressed"]

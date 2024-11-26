@@ -9,3 +9,4 @@ func load_sfx(audio_player: Variant, audio_stream: AudioStream) -> void:
 	if (audio_player.stream != audio_stream):
 		audio_player.stop()
 		audio_player.stream = audio_stream
+		audio_player.play()

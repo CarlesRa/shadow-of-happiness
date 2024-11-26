@@ -17,6 +17,10 @@ const GROUP_ENEMIES = "enemies"
 const S_ATTACK_PLAYER = "attack_player"
 const S_RESTORE_PLAYER_HEALTH = "restore_player_health"
 const S_INCRASE_POINTS = "incrase_points"
+const S_STOP_AUDIO = "stop_audio"
+const S_PLAY_AUDIO = "play_audio"
+const S_PLAY_LEVEL01_AUDIO = "play_level01_audio"
+const S_PLAY_FINAL_LEVEL01_AUDIO = "play_final_level01_audio"
 
 # Characters
 const PLAYER = "Player"
