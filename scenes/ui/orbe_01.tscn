@@ -186,3 +186,4 @@ bus = &"Orbes"
 area_mask = 2
 
 [connection signal="body_entered" from="PlayerDetect" to="." method="_on_area_2d_body_entered"]
+[connection signal="finished" from="Player" to="." method="_on_player_finished"]

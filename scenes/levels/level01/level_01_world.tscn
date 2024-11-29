@@ -543,7 +543,8 @@ _data = {
 position = Vector2(1, 0)
 script = ExtResource("1_xasis")
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="Level01MusicPlayer" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
 stream = ExtResource("1_8y6bm")
 autoplay = true
 bus = &"Music"
