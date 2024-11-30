@@ -598,6 +598,7 @@ collision_mask = 2
 
 [node name="PurplePotion2" parent="Potions" instance=ExtResource("7_i781b")]
 position = Vector2(6886, 63)
+collision_mask = 2
 
 [node name="Platforms" type="Node" parent="."]
 
