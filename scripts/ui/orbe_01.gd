@@ -18,7 +18,6 @@ func _on_player_finished() -> void:
 		change_scene()
 
 func change_scene() -> void:
-	Engine.time_scale = 1
 	var scene: PackedScene = preload("res://scenes/levels/level01/level_01_outro.tscn")
 	get_tree().change_scene_to_packed(scene)
 	queue_free()

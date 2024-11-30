@@ -14,7 +14,7 @@ func _init() -> void:
 
 func _ready() -> void:
 	Vars.player_points = Vars.player_points_initial_value
-	#player.position = Vars.player_position
+	player.position = Vars.player_position
 	var interface = preload("res://scenes/ui/interface.tscn").instantiate()
 	add_child(interface)
 

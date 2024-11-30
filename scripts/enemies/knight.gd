@@ -107,7 +107,7 @@ func play_audio(audio: AudioStream) -> void:
 	AudioUtil.load_sfx(player, audio)
 	player.play()
 
-func _on_animation_animation_finished() -> void:
+func _on_animation_animation_finished() -> void:	
 	is_attacking = false
 	if animation.animation == Consts.ANIMATION_ATTACK:
 		if is_player_in_attack_area:

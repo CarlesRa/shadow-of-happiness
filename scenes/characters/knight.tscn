@@ -269,7 +269,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pbhp1"]
-size = Vector2(44, 65)
+size = Vector2(73, 65)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6ein6"]
 size = Vector2(358, 54)
@@ -289,7 +289,7 @@ animation = &"attack"
 flip_h = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(9, 51.5)
+position = Vector2(5.5, 51.5)
 shape = SubResource("RectangleShape2D_pbhp1")
 
 [node name="DetectPlayer" type="Area2D" parent="."]

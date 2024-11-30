@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://b3lnena2jc3yx" path="res://assets/sprites/Torch Animated.png" id="1_bdi2k"]
 [ext_resource type="Script" path="res://scripts/ui/torch.gd" id="1_cbtlg"]
-[ext_resource type="AudioStream" uid="uid://b1k513esv03xq" path="res://audio/sfx/torch_sfx.wav" id="3_pjfwk"]
+[ext_resource type="AudioStream" uid="uid://dmqhn72yh052c" path="res://audio/sfx/fire_sfx.mp3" id="3_u6l5k"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0fvh2"]
 atlas = ExtResource("1_bdi2k")
@@ -84,7 +84,8 @@ position = Vector2(-2.5, -0.5)
 shape = SubResource("RectangleShape2D_05olq")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("3_pjfwk")
+stream = ExtResource("3_u6l5k")
+bus = &"Sfx"
 
 [node name="AudioPlayer" type="AudioStreamPlayer" parent="."]
 bus = &"Music"
